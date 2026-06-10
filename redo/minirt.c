@@ -1,27 +1,15 @@
-#include "minilibx/mlx.h"
-
-typedef struct s_lib
-{
-	void	*mlx_server;
-	void	*mlx_win;
-	void	*mlx_img;
-	char	*adr;
-	int	bits_per_pixel;
-	int	line_length;
-	int	endian;
-} t_lib;
+#include "basic.h"
 
 void	loop(t_lib info)
 {
 	int	i;
 
 	i = 0;
-	while (i < 1080 )
+	while (i < 1080 * 1920)
 	{
-		*(unsigned int *)(info.mlx_img + i * sizeof(unsigned int)) = 0x00FFFFFF;
+		draw(info, i % WIDTH, i / HEIGHT, 0x00FF0000);
 		i++;
 	}
-	
 }
 
 int	main(void)
