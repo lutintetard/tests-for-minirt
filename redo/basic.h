@@ -61,6 +61,13 @@ typedef struct s_sphere
 	unsigned int color;
 }	t_sphere;
 
+typedef struct s_plane
+{
+	t_coord		coord;
+	t_vector	normal_vector;
+	unsigned int	color;
+}	t_plane;
+
 typedef struct	s_quadratic
 {
 	double	a;
@@ -103,5 +110,7 @@ t_coord	sub_points(t_coord a, t_coord b);
 t_vector	point_to_vector(t_coord alpha);
 t_vector	copy_vector(t_vector other);
 t_coord		copy_coord(t_coord other);
+unsigned int	find_color_plane(t_plane plane, t_ray ray);
+unsigned int	calculate_value_pixel_plane(t_camera cam, int x, int y);
 
 #endif

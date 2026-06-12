@@ -138,7 +138,6 @@ LIBRARY FUNCTIONS	minilibx/man/man3/mlx.3	/^.SH LIBRARY FUNCTIONS$/;"	s	title:Mi
 LINKING MiniLibX	minilibx/man/man1/mlx.1	/^.SH LINKING MiniLibX$/;"	s	title:MiniLibX
 LINKING MiniLibX	minilibx/man/man3/mlx.3	/^.SH LINKING MiniLibX$/;"	s	title:MiniLibX
 LOCALHOST	minilibx/mlx_int.h	/^# define LOCALHOST /;"	d
-MATH_FUNCTIONS_H	math_functions.h	/^# define MATH_FUNCTIONS_H$/;"	d
 MLX_H	minilibx/mlx.h	/^#define	MLX_H$/;"	d
 MLX_INT_H	minilibx/mlx_int.h	/^# define MLX_INT_H$/;"	d
 MLX_MAX_EVENT	minilibx/mlx_int.h	/^# define MLX_MAX_EVENT /;"	d
@@ -171,6 +170,7 @@ NAME_UNAME	minilibx/Makefile.mk	/^NAME_UNAME	= libmlx_$(UNAME).a$/;"	m
 OBJ	minilibx/Makefile.mk	/^OBJ	= $(addprefix $(OBJ_DIR)\/,$(SRC:%.c=%.o))$/;"	m
 OBJ	minilibx/test/Makefile.mk	/^OBJ = $(SRC:%.c=%.o)$/;"	m
 OBJ_DIR	minilibx/Makefile.mk	/^OBJ_DIR = obj$/;"	m
+PI	basic.h	/^#define PI /;"	d
 RETURN	minilibx/mlx_xpm.c	/^#define	RETURN	/;"	d	file:
 RETURN VALUES	minilibx/man/man1/mlx.1	/^.SH RETURN VALUES$/;"	s	title:MiniLibX
 RETURN VALUES	minilibx/man/man1/mlx_new_image.1	/^.SH RETURN VALUES$/;"	s	title:MiniLibX
@@ -215,22 +215,27 @@ X-WINDOW EVENTS	minilibx/man/man3/mlx_loop.3	/^.SH X-WINDOW EVENTS$/;"	s	title:M
 XPM IMAGES	minilibx/man/man1/mlx_new_image.1	/^.SH XPM IMAGES$/;"	s	title:MiniLibX
 XPM IMAGES	minilibx/man/man3/mlx_new_image.3	/^.SH XPM IMAGES$/;"	s	title:MiniLibX
 X_ShmAttach	minilibx/mlx_new_image.c	/^#define	X_ShmAttach	/;"	d	file:
+a	basic.h	/^	double	a;$/;"	m	struct:s_quadratic	typeref:typename:double
+add_points	point_math.c	/^t_coord	add_points(t_coord a, t_coord b)$/;"	f	typeref:typename:t_coord
 add_vector	basic_vector_operations.c	/^t_vector	add_vector(t_vector vec1, t_vector vec2)$/;"	f	typeref:typename:t_vector
 adr	basic.h	/^	char	*adr;$/;"	m	struct:s_lib	typeref:typename:char *
 all	minilibx/Makefile	/^all	: do_configure$/;"	t
 all	minilibx/Makefile.mk	/^all	: $(NAME)$/;"	t
 all	minilibx/test/Makefile.mk	/^all: $(NAME)$/;"	t
-associated_angle_deg	dot_product.c	/^double float	associated_angle_deg(double float val)$/;"	f	typeref:typename:double float
-associated_angle_rad	dot_product.c	/^double float	associated_angle_rad(double float val)$/;"	f	typeref:typename:double float
+associated_angle_deg	dot_product.c	/^double	associated_angle_deg(double val)$/;"	f	typeref:typename:double
+associated_angle_rad	dot_product.c	/^double	associated_angle_rad(double val)$/;"	f	typeref:typename:double
 at_exit	minilibx/test/run_tests.sh	/^at_exit() {$/;"	f
+b	basic.h	/^	double	b;$/;"	m	struct:s_quadratic	typeref:typename:double
 bits_per_pixel	basic.h	/^	int	bits_per_pixel;$/;"	m	struct:s_lib	typeref:typename:int
 bpp	minilibx/mlx_int.h	/^	int				bpp;$/;"	m	struct:s_img	typeref:typename:int
 bpp1	minilibx/test/main.c	/^int	bpp1;$/;"	v	typeref:typename:int
 bpp2	minilibx/test/main.c	/^int	bpp2;$/;"	v	typeref:typename:int
 bpp3	minilibx/test/main.c	/^int	bpp3;$/;"	v	typeref:typename:int
 bpp4	minilibx/test/main.c	/^int	bpp4;$/;"	v	typeref:typename:int
-calculate_cam_directions	cam_directions.c	/^void	calculate_cam_directions(t_camera cam)$/;"	f	typeref:typename:void
+c	basic.h	/^	double	c;$/;"	m	struct:s_quadratic	typeref:typename:double
+calculate_cam_directions	cam_directions.c	/^t_camera	calculate_cam_directions(t_camera cam)$/;"	f	typeref:typename:t_camera
 calculate_value_pixel	send_rays.c	/^unsigned int	calculate_value_pixel(t_camera cam, int x, int y)$/;"	f	typeref:typename:unsigned int
+calculate_value_pixel_plane	send_rays.c	/^unsigned int	calculate_value_pixel_plane(t_camera cam, int x, int y)$/;"	f	typeref:typename:unsigned int
 centered_coord	manipulate_image_coordinates.c	/^void	centered_coord(int *x, int *y)$/;"	f	typeref:typename:void
 check	minilibx/Makefile.mk	/^check: all$/;"	t
 clean	minilibx/Makefile	/^clean	:$/;"	t
@@ -239,28 +244,33 @@ clean	minilibx/configure	/^clean(){$/;"	f
 clean	minilibx/test/Makefile.mk	/^clean:$/;"	t
 cmap	minilibx/mlx_int.h	/^	Colormap	cmap;$/;"	m	struct:s_xvar	typeref:typename:Colormap
 col	minilibx/mlx_int.h	/^	int		col;$/;"	m	struct:s_xpm_col	typeref:typename:int
+color	basic.h	/^	unsigned int	color;$/;"	m	struct:s_plane	typeref:typename:unsigned int
 color	basic.h	/^	unsigned int color;$/;"	m	struct:s_sphere	typeref:typename:unsigned int
 color	minilibx/mlx_int.h	/^	int		color;$/;"	m	struct:s_col_name	typeref:typename:int
 color_map_1	minilibx/test/main.c	/^int	color_map_1(void *win,int w,int h)$/;"	f	typeref:typename:int
 color_map_2	minilibx/test/main.c	/^int	color_map_2(unsigned char *data,int bpp,int sl,int w,int h,int endian, int type)$/;"	f	typeref:typename:int
 coord	basic.h	/^	t_coord		coord;$/;"	m	struct:s_camera	typeref:typename:t_coord
+coord	basic.h	/^	t_coord		coord;$/;"	m	struct:s_plane	typeref:typename:t_coord
 coord	basic.h	/^	t_coord	coord;$/;"	m	struct:s_sphere	typeref:typename:t_coord
+copy_coord	basic_vector_operations.c	/^t_coord		copy_coord(t_coord other)$/;"	f	typeref:typename:t_coord
+copy_vector	basic_vector_operations.c	/^t_vector	copy_vector(t_vector other)$/;"	f	typeref:typename:t_vector
 data	minilibx/mlx_int.h	/^	char			*data;$/;"	m	struct:s_img	typeref:typename:char *
 data1	minilibx/test/main.c	/^char	*data1;$/;"	v	typeref:typename:char *
 data2	minilibx/test/main.c	/^char	*data2;$/;"	v	typeref:typename:char *
 data3	minilibx/test/main.c	/^char	*data3;$/;"	v	typeref:typename:char *
 data4	minilibx/test/main.c	/^char	*data4;$/;"	v	typeref:typename:char *
 decrgb	minilibx/mlx_int.h	/^	int			decrgb[6];$/;"	m	struct:s_xvar	typeref:typename:int[6]
+delta	basic.h	/^	double	delta;$/;"	m	struct:s_quadratic	typeref:typename:double
 depth	minilibx/mlx_int.h	/^	int			depth;$/;"	m	struct:s_xvar	typeref:typename:int
 diameter	basic.h	/^	double	diameter;$/;"	m	struct:s_sphere	typeref:typename:double
 direction	basic.h	/^	t_vector	direction;$/;"	m	struct:s_ray	typeref:typename:t_vector
 display	minilibx/mlx_int.h	/^	Display		*display;$/;"	m	struct:s_xvar	typeref:typename:Display *
-div_vec_const	basic_vector_operations.c	/^t_vector	div_vec_const(double float value, t_vector vec)$/;"	f	typeref:typename:t_vector
+div_vec_const	basic_vector_operations.c	/^t_vector	div_vec_const(double value, t_vector vec)$/;"	f	typeref:typename:t_vector
 do_configure	minilibx/Makefile	/^do_configure	:$/;"	t
 do_flush	minilibx/mlx_int.h	/^	int			do_flush;$/;"	m	struct:s_xvar	typeref:typename:int
-dot_product	dot_product.c	/^double float	dot_product(t_vector vec1, t_vector vec2)$/;"	f	typeref:typename:double float
+dot_product	dot_product.c	/^double	dot_product(t_vector vec1, t_vector vec2)$/;"	f	typeref:typename:double
 dot_product_point_vec	dot_product.c	/^double	dot_product_point_vec(t_coord point, t_vector vector)$/;"	f	typeref:typename:double
-dot_product_unnormed	dot_product.c	/^double float	dot_product_unnormed(t_vector vec1, t_vector vec2)$/;"	f	typeref:typename:double float
+dot_product_unnormed	dot_product.c	/^double	dot_product_unnormed(t_vector vec1, t_vector vec2)$/;"	f	typeref:typename:double
 draw	draw_to_image.c	/^void	draw(t_lib image, int x, int y, int color)$/;"	f	typeref:typename:void
 end_loop	minilibx/mlx_int.h	/^	int 		end_loop;$/;"	m	struct:s_xvar	typeref:typename:int
 endian	basic.h	/^	int	endian;$/;"	m	struct:s_lib	typeref:typename:int
@@ -272,11 +282,12 @@ expose_hook	minilibx/mlx_int.h	/^	int					(*expose_hook)();$/;"	m	struct:s_win_l
 expose_param	minilibx/mlx_int.h	/^	void				*expose_param;$/;"	m	struct:s_win_list	typeref:typename:void *
 expose_win1	minilibx/test/main.c	/^int	expose_win1(void *p)$/;"	f	typeref:typename:int
 expose_win2	minilibx/test/main.c	/^int	expose_win2(void *p)$/;"	f	typeref:typename:int
+find_color_plane	inter_plane.c	/^int	find_color_plane(t_plane plane, t_ray ray)$/;"	f	typeref:typename:int
 find_color_sphere	sphere.c	/^unsigned int	find_color_sphere(t_sphere sphere, t_ray ray)$/;"	f	typeref:typename:unsigned int
 find_determinant	sphere.c	/^int	 find_determinant(t_quadratic params)$/;"	f	typeref:typename:int
 find_intersections_sphere	sphere.c	/^unsigned int	find_intersections_sphere(t_quadratic quad, t_sphere sphere)$/;"	f	typeref:typename:unsigned int
 find_ray	send_rays.c	/^t_ray	find_ray(int x, int y, t_camera cam)$/;"	f	typeref:typename:t_ray
-find_values_of_quadratic_sphere	sphere.c	/^void	find_values_of_quadratic_sphere(t_sphere sphere, t_ray ray,\\$/;"	f	typeref:typename:void
+find_values_of_quadratic_sphere	sphere.c	/^t_quadratic	find_values_of_quadratic_sphere(t_sphere sphere, t_ray ray,\\$/;"	f	typeref:typename:t_quadratic
 format	minilibx/mlx_int.h	/^	int				format;$/;"	m	struct:s_img	typeref:typename:int
 fov	basic.h	/^	double 			fov;$/;"	m	struct:s_camera	typeref:typename:double
 gc	minilibx/mlx_int.h	/^	GC					gc;$/;"	m	struct:s_win_list	typeref:typename:GC
@@ -396,16 +407,18 @@ mouse_param	minilibx/mlx_int.h	/^	void				*mouse_param;$/;"	m	struct:s_win_list	
 mouse_win1	minilibx/test/main.c	/^int	mouse_win1(int button,int x,int y, void *p)$/;"	f	typeref:typename:int
 mouse_win2	minilibx/test/main.c	/^int	mouse_win2(int button,int x,int y, void *p)$/;"	f	typeref:typename:int
 mouse_win3	minilibx/test/main.c	/^int	mouse_win3(int x,int y, void *p)$/;"	f	typeref:typename:int
-mult_vec_const	basic_vector_operations.c	/^t_vector	mult_vec_const(double float value, t_vector vec)$/;"	f	typeref:typename:t_vector
+mult_vec_const	basic_vector_operations.c	/^t_vector	mult_vec_const(double value, t_vector vec)$/;"	f	typeref:typename:t_vector
 name	minilibx/mlx_int.h	/^	char	*name;$/;"	m	struct:s_col_name	typeref:typename:char *
 name	minilibx/mlx_int.h	/^	int		name;$/;"	m	struct:s_xpm_col	typeref:typename:int
 next	minilibx/mlx_int.h	/^	struct s_win_list	*next;$/;"	m	struct:s_win_list	typeref:struct:s_win_list *
+normal_vector	basic.h	/^	t_vector	normal_vector;$/;"	m	struct:s_plane	typeref:typename:t_vector
 normalized_vector	vector_length.c	/^t_vector	normalized_vector(t_vector vec)$/;"	f	typeref:typename:t_vector
 orientation_vector	basic.h	/^	t_vector	orientation_vector;$/;"	m	struct:s_camera	typeref:typename:t_vector
 origin	basic.h	/^	t_coord	origin;$/;"	m	struct:s_ray	typeref:typename:t_coord
 param	minilibx/mlx_int.h	/^	void	*param;$/;"	m	struct:s_event_list	typeref:typename:void *
 parse_args	minilibx/configure	/^parse_args(){$/;"	f
 pix	minilibx/mlx_int.h	/^	Pixmap			pix;$/;"	m	struct:s_img	typeref:typename:Pixmap
+point_to_vector	point_math.c	/^t_vector	point_to_vector(t_coord alpha)$/;"	f	typeref:typename:t_vector
 private_cmap	minilibx/mlx_int.h	/^	int			private_cmap;$/;"	m	struct:s_xvar	typeref:typename:int
 pshm_format	minilibx/mlx_int.h	/^	int			pshm_format;$/;"	m	struct:s_xvar	typeref:typename:int
 re	minilibx/Makefile	/^re	: clean all$/;"	t
@@ -418,6 +431,8 @@ s_coord	basic.h	/^typedef struct s_coord$/;"	s
 s_event_list	minilibx/mlx_int.h	/^typedef struct	s_event_list$/;"	s
 s_img	minilibx/mlx_int.h	/^typedef struct	s_img$/;"	s
 s_lib	basic.h	/^typedef struct s_lib$/;"	s
+s_plane	basic.h	/^typedef struct s_plane$/;"	s
+s_quadratic	basic.h	/^typedef struct	s_quadratic$/;"	s
 s_ray	basic.h	/^typedef struct s_ray$/;"	s
 s_sphere	basic.h	/^typedef struct s_sphere$/;"	s
 s_vector	basic.h	/^typedef struct s_vector$/;"	s
@@ -438,12 +453,15 @@ sl2	minilibx/test/main.c	/^int	sl2;$/;"	v	typeref:typename:int
 sl3	minilibx/test/main.c	/^int	sl3;$/;"	v	typeref:typename:int
 sl4	minilibx/test/main.c	/^int	sl4;$/;"	v	typeref:typename:int
 strlcpy_is_not_posix	minilibx/mlx_xpm.c	/^unsigned int	strlcpy_is_not_posix(char *dest, char *src, unsigned int size)$/;"	f	typeref:typename:unsigned int
+sub_points	point_math.c	/^t_coord	sub_points(t_coord a, t_coord b)$/;"	f	typeref:typename:t_coord
 sub_vectors	basic_vector_operations.c	/^t_vector	sub_vectors(t_vector vec1, t_vector vec2)$/;"	f	typeref:typename:t_vector
 t_camera	basic.h	/^}	t_camera;$/;"	t	typeref:struct:s_camera
 t_coord	basic.h	/^}	t_coord;$/;"	t	typeref:struct:s_coord
 t_event_list	minilibx/mlx_int.h	/^}				t_event_list;$/;"	t	typeref:struct:s_event_list
 t_img	minilibx/mlx_int.h	/^}				t_img;$/;"	t	typeref:struct:s_img
 t_lib	basic.h	/^}	t_lib;$/;"	t	typeref:struct:s_lib
+t_plane	basic.h	/^}	t_plane;$/;"	t	typeref:struct:s_plane
+t_quadratic	basic.h	/^}	t_quadratic;$/;"	t	typeref:struct:s_quadratic
 t_ray	basic.h	/^}	t_ray;$/;"	t	typeref:struct:s_ray
 t_sphere	basic.h	/^}	t_sphere;$/;"	t	typeref:struct:s_sphere
 t_vector	basic.h	/^}	t_vector;$/;"	t	typeref:struct:s_vector
@@ -454,7 +472,7 @@ test_default_main	minilibx/test/run_tests.sh	/^test_default_main(){$/;"	f
 type	minilibx/mlx_int.h	/^	int				type;$/;"	m	struct:s_img	typeref:typename:int
 up	basic.h	/^	t_vector	up;$/;"	m	struct:s_camera	typeref:typename:t_vector
 use_xshm	minilibx/mlx_int.h	/^	int			use_xshm;$/;"	m	struct:s_xvar	typeref:typename:int
-vector_length	vector_length.c	/^double float	vector_length(t_vector vec)$/;"	f	typeref:typename:double float
+vector_length	vector_length.c	/^double	vector_length(t_vector vec)$/;"	f	typeref:typename:double
 vector_product	vector_product.c	/^t_vector	vector_product(t_vector vec1, t_vector vec2)$/;"	f	typeref:typename:t_vector
 vector_product_unnormed	vector_product.c	/^t_vector	vector_product_unnormed(t_vector vec1, t_vector vec2)$/;"	f	typeref:typename:t_vector
 vector_two_points	dot_product.c	/^t_vector	vector_two_points(t_coord pa, t_coord pb)$/;"	f	typeref:typename:t_vector

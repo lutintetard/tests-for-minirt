@@ -38,7 +38,7 @@ void	loop(t_lib info)
 		color = 0x00000000;
 		while (j < WIDTH)
 		{
-			color = calculate_value_pixel(cam, j, i);
+			color = calculate_value_pixel_plane(cam, j, i);
 			draw(info, j++, i, color);
 		}
 		i++;

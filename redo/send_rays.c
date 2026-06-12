@@ -32,11 +32,11 @@ t_ray	find_ray(int x, int y, t_camera cam)
 	offset_y = y / (double)(WIDTH) * opposed;
 	printf("value y: %d \toffset y = %f\n" , y, offset_y);
 	ray_to_send.direction = copy_vector(cam.orientation_vector);
-	printf("x factor ray: %d, y factor ray: %d, z factor ray: %d\n", ray_to_send.direction.x_axis, ray_to_send.direction.y_axis, ray_to_send.direction.z_axis);
+	//printf("x factor ray: %d, y factor ray: %d, z factor ray: %d\n", ray_to_send.direction.x_axis, ray_to_send.direction.y_axis, ray_to_send.direction.z_axis);
 	ray_to_send.direction = copy_vector(add_vector(mult_vec_const(offset_x, cam.right), ray_to_send.direction));
 	ray_to_send.direction = copy_vector(add_vector(mult_vec_const(offset_y, cam.up), ray_to_send.direction));
 	ray_to_send.direction = copy_vector(normalized_vector(ray_to_send.direction));
-	//printf("x factor ray: %d, y factor ray: %d, z factor ray: %d\n", ray_to_send.direction.x_axis, ray_to_send.direction.y_axis, ray_to_send.direction.z_axis);
+	printf("x factor ray: %f, y factor ray: %f, z factor ray: %f\n", ray_to_send.direction.x_axis, ray_to_send.direction.y_axis, ray_to_send.direction.z_axis);
 	ray_to_send.origin = copy_coord(cam.coord);
 	return (ray_to_send);
 }
@@ -81,6 +81,27 @@ unsigned int	calculate_value_pixel(t_camera cam, int x, int y)
 	//entre le rayon et la forme
 	//trouver la valeur la plus faible et afficher la couleur associee
 	//stocket les points d'intersection sous la forme de liste chainee
+}
+
+unsigned int	calculate_value_pixel_plane(t_camera cam, int x, int y)
+{
+	t_vector	associated_ray;
+	t_plane		plane;
+	t_ray		ray;
+
+	plane.coord.x = 20;
+	plane.coord.y = 0;
+	plane.coord.z = 0;
+	plane.normal_vector.x_axis = 0;
+	plane.normal_vector.y_axis = 0;
+	plane.normal_vector.z_axis = 1;
+	plane.color = 0x00FF0000;
+
+	centered_coord(&x, &y);
+	ray = find_ray(x, y, cam);
+	//printf("x: %d\t y: %d\t z: %d\n", ray.direction.x_axis, ray.direction.y_axis, ray.direction.y_axis);
+	//usleep(5000);
+	return (find_color_plane(plane, ray));
 }
 
 /*
