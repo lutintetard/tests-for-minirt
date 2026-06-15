@@ -9,6 +9,7 @@
 #define WIDTH 300
 #define HEIGHT 300 
 #define PI 3.14
+#define PLANE_QUAD_ON 1
 
 typedef struct s_lib
 //structure serveur

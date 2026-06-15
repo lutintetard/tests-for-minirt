@@ -33,7 +33,8 @@ unsigned int	find_color_plane(t_plane plane, t_ray ray)
 
 	t_coord		intersection_point;
 	intersection_point = add_point_vector(ray.origin, mult_vec_const(distance, ray.direction));
-	if (((int)(intersection_point.x) + (int)(intersection_point.y) + (int)(intersection_point.z)) % 2 == 0)
+	if (((int)(intersection_point.x) + (int)(intersection_point.y) + (int)(intersection_point.z)) % 2 == 0\
+		&& PLANE_QUAD_ON)
 		return (0);
 	return (plane.color);
 }
