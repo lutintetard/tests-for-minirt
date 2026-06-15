@@ -25,7 +25,7 @@ void	loop(t_lib info)
 
 	cam.coord.x = 0;
 	cam.coord.y= 0;
-	cam.coord.z = 0;
+	cam.coord.z = 1;
 	cam.orientation_vector.x_axis = 1;
 	cam.orientation_vector.y_axis = 0;
 	cam.orientation_vector.z_axis = 0;

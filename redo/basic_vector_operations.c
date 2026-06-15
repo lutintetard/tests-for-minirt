@@ -6,7 +6,7 @@
 /*   By: lfournea <lfournea@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 15:32:42 by lfournea          #+#    #+#             */
-/*   Updated: 2026/06/11 14:28:52 by lfournea         ###   ########.fr       */
+/*   Updated: 2026/06/15 11:56:17 by lfournea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,15 @@ t_coord		copy_coord(t_coord other)
 	copy.y = other.y;
 	copy.z = other.z;
 	return (copy);
+}
+
+t_coord		add_point_vector(t_coord point, t_vector vec)
+{
+	t_coord	final;
+
+	final.x = point.x + vec.x_axis;
+	final.y = point.y + vec.y_axis;
+	final.z = point.z + vec.z_axis;
+
+	return (final);
 }

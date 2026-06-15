@@ -89,6 +89,7 @@ t_vector	add_vector(t_vector vec1, t_vector vec2);
 t_vector	sub_vectors(t_vector vec1, t_vector vec2);
 t_vector	mult_vec_const(double value, t_vector vec);
 t_vector	div_vec_const(double value, t_vector vec);
+t_coord		add_point_vector(t_coord point, t_vector vec);
 double	vector_length(t_vector vec);
 t_vector	normalized_vector(t_vector vec);
 void	draw(t_lib image, int x, int y, int color);

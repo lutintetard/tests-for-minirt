@@ -14,26 +14,26 @@ unsigned int	find_color_plane(t_plane plane, t_ray ray)
 
 	dire_plane = dot_product_unnormed(ray.direction, plane.normal_vector);
 	if (dire_plane == 0)
-		return (0x00FF0000);
+	{
+		t_vector	in_plane;
+		double		val;
+
+		printf("Plan: x=%f y=%f z=%f\n", plane.coord.x, plane.coord.y, plane.coord.z);
+		printf("Ray: x=%f y=%f z=%f\n", ray.origin.x, ray.origin.y, ray.origin.z); 
+		in_plane = vector_two_points(plane.coord, ray.origin);
+		val = dot_product_unnormed(in_plane, plane.normal_vector); 
+		if (val < 1.0e-6 && val > -1.06e-6)
+			return (0x000000FF);
+	}
 	distance = dot_product_point_vec(plane.coord, plane.normal_vector); 
 	distance -= dot_product_point_vec(ray.origin, plane.normal_vector); 
 	distance /= dire_plane;
 	if (distance < 0)
 		return (0);
-	t_vector intersection_point;
-        intersection_point.x_axis = ray.origin.x + distance * ray.direction.x_axis;
-        intersection_point.y_axis = ray.origin.y + distance * ray.direction.y_axis;
-        intersection_point.z_axis = ray.origin.z + distance * ray.direction.z_axis;
 
-        // 5. Application du damier
-        // Note : On utilise les 3 axes (ou au moins X et Y si c'est un mur, X et Z si c'est un sol)
-        // Pour être universel, on peut additionner les 3 axes :
-        int check_x = (int)floor(intersection_point.x_axis);
-        int check_y = (int)floor(intersection_point.y_axis);
-        int check_z = (int)floor(intersection_point.z_axis);
-
-        if ((check_x + check_y + check_z) % 2 == 0)
-                return (0x00000000); // Noir
-        else
-                return (plane.color); // Couleur du pla
+	t_coord		intersection_point;
+	intersection_point = add_point_vector(ray.origin, mult_vec_const(distance, ray.direction));
+	if (((int)(intersection_point.x) + (int)(intersection_point.y) + (int)(intersection_point.z)) % 2 == 0)
+		return (0);
+	return (plane.color);
 }

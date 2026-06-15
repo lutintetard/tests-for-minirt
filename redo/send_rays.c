@@ -27,7 +27,8 @@ t_ray	find_ray(int x, int y, t_camera cam)
 
 	opposed = tan((cam.fov * 3.14 / 360));
 	offset_x = x / (double)(WIDTH) * opposed;
-	printf("angle = %f\t" , cam.fov * 3.14 / 360);
+	printf("----------New Ray------------------\n");
+	printf("angle = %f\n" , cam.fov * 3.14 / 360);
 	printf("value x: %d, \toffset x = %f\n" , x, offset_x);
 	offset_y = y / (double)(WIDTH) * opposed;
 	printf("value y: %d \toffset y = %f\n" , y, offset_y);
