@@ -69,6 +69,15 @@ typedef struct s_plane
 	unsigned int	color;
 }	t_plane;
 
+typedef struct s_cylinder
+{
+	t_coord		coord;
+	t_vector	axis_vector;
+	double	diameter;
+	double	height;
+	unsigned int	color;
+}	t_cylinder;
+
 typedef struct	s_quadratic
 {
 	double	a;

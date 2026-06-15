@@ -105,6 +105,28 @@ unsigned int	calculate_value_pixel_plane(t_camera cam, int x, int y)
 	return (find_color_plane(plane, ray));
 }
 
+
+unsigned int	calculate_val_pixel_cyl(t_camera cam, int x, int y)
+{
+	t_cylinder		cyl;
+	t_ray		ray;
+
+	cyl.coord.x = 20;
+	cyl.coord.y = 0;
+	cyl.coord.z = 0;
+	cyl.axis_vector.x_axis = 0;
+	cyl.axis_vector.y_axis = 0;
+	cyl.axis_vector.z_axis = 1;
+	cyl.diameter = 5;
+	cyl.height = 15;
+	cyl.color = 0x00FF0000;
+
+	centered_coord(&x, &y);
+	ray = find_ray(x, y, cam);
+	//printf("x: %d\t y: %d\t z: %d\n", ray.direction.x_axis, ray.direction.y_axis, ray.direction.y_axis);
+	//usleep(5000);
+	return (find_color_cyl(cyl, ray));
+}
 /*
 int	send_rays(t_lib info)
 //cette fonction parcours les pixels selon leurs indices et lance les fonctions 
