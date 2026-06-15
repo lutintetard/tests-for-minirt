@@ -115,10 +115,10 @@ unsigned int	calculate_val_pixel_cyl(t_camera cam, int x, int y)
 	cyl.coord.y = 0;
 	cyl.coord.z = 0;
 	cyl.axis_vector.x_axis = 0;
-	cyl.axis_vector.y_axis = 0;
-	cyl.axis_vector.z_axis = 1;
-	cyl.diameter = 5;
-	cyl.height = 15;
+	cyl.axis_vector.y_axis = 1;
+	cyl.axis_vector.z_axis = 0;
+	cyl.diameter = 1;
+	cyl.height = 5;
 	cyl.color = 0x00FF0000;
 
 	centered_coord(&x, &y);

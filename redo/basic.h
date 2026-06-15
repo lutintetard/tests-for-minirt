@@ -103,7 +103,7 @@ t_coord		add_point_vector(t_coord point, t_vector vec);
 double	vector_length(t_vector vec);
 t_vector	normalized_vector(t_vector vec);
 void	draw(t_lib image, int x, int y, int color);
-int	 find_determinant(t_quadratic params);
+double	 find_determinant(t_quadratic params);
 unsigned int	find_color_sphere(t_sphere sphere, t_ray ray);
 t_quadratic	find_values_of_quadratic_sphere(t_sphere sphere, t_ray ray,\
 t_quadratic params);
@@ -121,7 +121,9 @@ t_coord	sub_points(t_coord a, t_coord b);
 t_vector	point_to_vector(t_coord alpha);
 t_vector	copy_vector(t_vector other);
 t_coord		copy_coord(t_coord other);
+double	distance_two_points(t_coord x, t_coord y);
 unsigned int	find_color_plane(t_plane plane, t_ray ray);
 unsigned int	calculate_value_pixel_plane(t_camera cam, int x, int y);
-
+unsigned int	find_color_cyl(t_cylinder cyl, t_ray ray);
+unsigned int	calculate_val_pixel_cyl(t_camera cam, int x, int y);
 #endif

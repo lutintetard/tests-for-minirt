@@ -29,3 +29,8 @@ t_vector	point_to_vector(t_coord alpha)
 	output.z_axis = alpha.z;
 	return (output);
 }
+
+double	distance_two_points(t_coord x, t_coord y)
+{
+	return (sqrt(pow(x.x - y.x, 2) + pow(x.y - y.y, 2) + pow(x.z - y.z, 2)));
+}

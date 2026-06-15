@@ -37,14 +37,16 @@ t_quadratic params)
 	return (params);
 }
 
-int	 find_determinant(t_quadratic params)
+double	 find_determinant(t_quadratic params)
 //le calcul du delta est le suivant;
 //delta = b^2 - 4ac
 {
-	params.delta = pow(params.b, 2) - (4 * params.a * params.c);
-	if (params.delta < 0)
-		return (1);
-	return (0);
+	double delta;
+
+	delta = pow(params.b, 2) - (4 * params.a * params.c);
+	if (delta < 0)
+		return (-1);
+	return (delta);
 } 
 
 unsigned int	find_intersections_sphere(t_quadratic quad, t_sphere sphere)
