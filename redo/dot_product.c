@@ -6,7 +6,7 @@
 /*   By: lfournea <lfournea@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 15:15:07 by lfournea          #+#    #+#             */
-/*   Updated: 2026/06/11 11:50:29 by lfournea         ###   ########.fr       */
+/*   Updated: 2026/06/16 14:33:03 by lfournea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,18 @@ double	dot_product_point_vec(t_coord point, t_vector vector)
 	point_vec.y_axis = point.y;
 	point_vec.z_axis = point.z;
 	result = dot_product_unnormed(point_vec, vector);
+	return (result);	
+}
+
+double	dot_product_point_vec_two(t_coord point, t_vector vector)
+{
+	t_vector	point_vec;
+	double		result;
+
+	point_vec.x_axis = point.x;
+	point_vec.y_axis = point.y;
+	point_vec.z_axis = point.z;
+	result = dot_product(point_vec, vector);
 	return (result);	
 }
 

@@ -24,13 +24,15 @@ bool	intersection_infinite_cyl(t_quadratic *polynome, t_ray ray, t_cylinder cyl)
 
 	delta = calculate_delta(cyl, ray);
 	polynome->a = 1 - pow(dot_product_unnormed(ray.direction, cyl.axis_vector), 2); 
-	polynome->b = 2 * ((dot_product(ray.direction, delta)) - (dot_product(ray.direction, cyl.axis_vector) * dot_product(delta, cyl.axis_vector)));
+	polynome->b = 2 * ((dot_product(ray.direction, delta)) - (dot_product_unnormed(ray.direction, cyl.axis_vector) * dot_product(delta, cyl.axis_vector)));
 	polynome->c = dot_product(delta, delta) - pow(dot_product(delta, cyl.axis_vector), 2) - pow(cyl.diameter / 2, 2);
 	polynome->delta = find_determinant(*polynome);
 	if (polynome->delta == -1)
 		return (false);
 	return (true);
-} bool	intersection_finit_cyl(t_quadratic polynome, t_ray ray, t_cylinder cyl)
+}
+
+bool	intersection_finit_cyl(t_quadratic polynome, t_ray ray, t_cylinder cyl)
 {
 	double distance1;
 	double distance2;
@@ -58,6 +60,37 @@ bool	intersection_infinite_cyl(t_quadratic *polynome, t_ray ray, t_cylinder cyl)
 	return (true);
 }
 
+bool	intersection_point_cap(t_ray ray, t_cylinder cyl)
+{
+	t_coord	center_bottom_face;
+	t_coord	center_top_face;
+	double	denom;
+
+	
+	center_bottom_face = add_point_vector(cyl.coord, mult_vec_const(cyl.height / 2, cyl.axis_vector)); 
+	center_top_face = add_point_vector(cyl.coord, mult_vec_const((-1) * cyl.height / 2, cyl.axis_vector)); 
+	denom = dot_product_unnormed(ray.direction, cyl.axis_vector); 
+	if (denom < 1.0e-6)
+		return (false);
+
+	double	distance_to_bottom;
+	distance_to_bottom = dot_product(vector_two_points(ray.origin, center_bottom_face), cyl.axis_vector) / denom;
+
+	double	distance_to_top;
+	distance_to_top = dot_product(vector_two_points(ray.origin, center_top_face), cyl.axis_vector) / denom;
+
+	t_coord	intersection_bottom;
+	intersection_bottom = add_point_vector(ray.origin, mult_vec_const(distance_to_bottom, ray.direction));
+
+	t_coord	intersection_top;
+	intersection_top = add_point_vector(ray.origin, mult_vec_const(distance_to_top, ray.direction));
+
+	if (distance_two_points(center_bottom_face, intersection_bottom) < cyl.diameter / 2 || 
+		distance_two_points(center_top_face, intersection_top) < cyl.diameter / 2)
+		return (true);
+	return (false);
+}
+
 unsigned int	find_color_cyl(t_cylinder cyl, t_ray ray)
 //Test 1: Intersection d'un point et d'un cylindre infini
 //L intersection d'un rayon et d'un cylindre est defini comme
@@ -76,6 +109,11 @@ unsigned int	find_color_cyl(t_cylinder cyl, t_ray ray)
 
 	if (intersection_infinite_cyl(&polynome, ray, cyl) && 
 		intersection_finit_cyl(polynome, ray, cyl))
+	{
+		return (cyl.color);
+	}
+	//ici un bug si le couvercle est devant le point a gerer
+	if (intersection_point_cap(ray, cyl))
 	{
 		return (cyl.color);
 	}

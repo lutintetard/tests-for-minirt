@@ -90,14 +90,16 @@ unsigned int	calculate_value_pixel_plane(t_camera cam, int x, int y)
 	t_plane		plane;
 	t_ray		ray;
 
-	plane.coord.x = 20;
+	plane.coord.x = 0;
 	plane.coord.y = 0;
-	plane.coord.z = 0;
+	plane.coord.z = -10;
 	plane.normal_vector.x_axis = 0;
 	plane.normal_vector.y_axis = 0;
 	plane.normal_vector.z_axis = 1;
 	plane.color = 0x00FF0000;
 
+	
+	plane.normal_vector = normalized_vector(plane.normal_vector); 
 	centered_coord(&x, &y);
 	ray = find_ray(x, y, cam);
 	//printf("x: %d\t y: %d\t z: %d\n", ray.direction.x_axis, ray.direction.y_axis, ray.direction.y_axis);
@@ -114,13 +116,14 @@ unsigned int	calculate_val_pixel_cyl(t_camera cam, int x, int y)
 	cyl.coord.x = 20;
 	cyl.coord.y = 0;
 	cyl.coord.z = 0;
-	cyl.axis_vector.x_axis = 0;
+	cyl.axis_vector.x_axis = 1;
 	cyl.axis_vector.y_axis = 1;
-	cyl.axis_vector.z_axis = 0;
+	cyl.axis_vector.z_axis = 1;
 	cyl.diameter = 1;
 	cyl.height = 5;
 	cyl.color = 0x0000FF00;
 
+	cyl.axis_vector = normalized_vector(cyl.axis_vector); 
 	centered_coord(&x, &y);
 	ray = find_ray(x, y, cam);
 	//printf("x: %d\t y: %d\t z: %d\n", ray.direction.x_axis, ray.direction.y_axis, ray.direction.y_axis);

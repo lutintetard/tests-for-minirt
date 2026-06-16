@@ -1,5 +1,19 @@
 #include "basic.h"
 
+int	offset_neg_coords(t_coord point)
+{
+	int	i;
+	
+	i = 0;
+	if (point.x < 0)
+		i++;
+	if (point.y < 0)
+		i++;
+	if (point.z < 0)
+		i++;
+	return (i);
+}
+
 unsigned int	find_color_plane(t_plane plane, t_ray ray)
 //dans cette fonction utiliser un produit vectoriel pour s'assurer que le vecteur 
 //de vision de la camera et le plan ne sont pas confondus (possiblement une infinite de 
@@ -12,7 +26,7 @@ unsigned int	find_color_plane(t_plane plane, t_ray ray)
 	double		dire_plane;
 	double		distance;
 
-	dire_plane = dot_product_unnormed(ray.direction, plane.normal_vector);
+	dire_plane = dot_product(ray.direction, plane.normal_vector);
 	if (dire_plane == 0)
 	{
 		t_vector	in_plane;
@@ -25,15 +39,17 @@ unsigned int	find_color_plane(t_plane plane, t_ray ray)
 		if (val < 1.0e-6 && val > -1.06e-6)
 			return (0x000000FF);
 	}
-	distance = dot_product_point_vec(plane.coord, plane.normal_vector); 
-	distance -= dot_product_point_vec(ray.origin, plane.normal_vector); 
+	distance = dot_product_point_vec_two(plane.coord, plane.normal_vector); 
+	distance -= dot_product_point_vec_two(ray.origin, plane.normal_vector); 
 	distance /= dire_plane;
 	if (distance < 0)
 		return (0);
 
 	t_coord		intersection_point;
+	int		total_neg;
 	intersection_point = add_point_vector(ray.origin, mult_vec_const(distance, ray.direction));
-	if (((int)(intersection_point.x) + (int)(intersection_point.y) + (int)(intersection_point.z)) % 2 == 0\
+	total_neg = offset_neg_coords(intersection_point);	
+	if (((int)(intersection_point.x) + (int)(intersection_point.y) + (int)(intersection_point.z) + total_neg) % 2 == 0\
 		&& PLANE_QUAD_ON)
 		return (0);
 	return (plane.color);

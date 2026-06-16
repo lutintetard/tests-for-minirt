@@ -111,6 +111,7 @@ unsigned int	find_intersections_sphere(t_quadratic quad, t_sphere sphere);
 double dot_product(t_vector vec1, t_vector vec2);
 double 	dot_product_unnormed(t_vector vec1, t_vector vec2);
 double	dot_product_point_vec(t_coord point, t_vector vector);
+double	dot_product_point_vec_two(t_coord point, t_vector vector);
 double associated_angle_rad(double val);
 double 	associated_angle_deg(double val);
 t_vector	vector_two_points(t_coord pa, t_coord pb);
