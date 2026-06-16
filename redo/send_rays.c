@@ -119,7 +119,7 @@ unsigned int	calculate_val_pixel_cyl(t_camera cam, int x, int y)
 	cyl.axis_vector.z_axis = 0;
 	cyl.diameter = 1;
 	cyl.height = 5;
-	cyl.color = 0x00FF0000;
+	cyl.color = 0x0000FF00;
 
 	centered_coord(&x, &y);
 	ray = find_ray(x, y, cam);

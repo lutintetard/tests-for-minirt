@@ -39,6 +39,7 @@ void	loop(t_lib info)
 		while (j < WIDTH)
 		{
 			color = calculate_val_pixel_cyl(cam, j, i);
+			printf("image x: %d image y: %d color: %d\n", j, i, color);
 			draw(info, j++, i, color);
 		}
 		i++;

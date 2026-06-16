@@ -237,6 +237,7 @@ bpp3	minilibx/test/main.c	/^int	bpp3;$/;"	v	typeref:typename:int
 bpp4	minilibx/test/main.c	/^int	bpp4;$/;"	v	typeref:typename:int
 c	basic.h	/^	double	c;$/;"	m	struct:s_quadratic	typeref:typename:double
 calculate_cam_directions	cam_directions.c	/^t_camera	calculate_cam_directions(t_camera cam)$/;"	f	typeref:typename:t_camera
+calculate_delta	inter_cyl.c	/^t_vector		calculate_delta(t_cylinder cyl, t_ray ray)$/;"	f	typeref:typename:t_vector
 calculate_val_pixel_cyl	send_rays.c	/^unsigned int	calculate_val_pixel_cyl(t_camera cam, int x, int y)$/;"	f	typeref:typename:unsigned int
 calculate_value_pixel	send_rays.c	/^unsigned int	calculate_value_pixel(t_camera cam, int x, int y)$/;"	f	typeref:typename:unsigned int
 calculate_value_pixel_plane	send_rays.c	/^unsigned int	calculate_value_pixel_plane(t_camera cam, int x, int y)$/;"	f	typeref:typename:unsigned int
@@ -272,6 +273,7 @@ diameter	basic.h	/^	double	diameter;$/;"	m	struct:s_cylinder	typeref:typename:do
 diameter	basic.h	/^	double	diameter;$/;"	m	struct:s_sphere	typeref:typename:double
 direction	basic.h	/^	t_vector	direction;$/;"	m	struct:s_ray	typeref:typename:t_vector
 display	minilibx/mlx_int.h	/^	Display		*display;$/;"	m	struct:s_xvar	typeref:typename:Display *
+distance_two_points	point_math.c	/^double	distance_two_points(t_coord x, t_coord y)$/;"	f	typeref:typename:double
 div_vec_const	basic_vector_operations.c	/^t_vector	div_vec_const(double value, t_vector vec)$/;"	f	typeref:typename:t_vector
 do_configure	minilibx/Makefile	/^do_configure	:$/;"	t
 do_flush	minilibx/mlx_int.h	/^	int			do_flush;$/;"	m	struct:s_xvar	typeref:typename:int
@@ -292,7 +294,7 @@ expose_win2	minilibx/test/main.c	/^int	expose_win2(void *p)$/;"	f	typeref:typena
 find_color_cyl	inter_cyl.c	/^unsigned int	find_color_cyl(t_cylinder cyl, t_ray ray)$/;"	f	typeref:typename:unsigned int
 find_color_plane	inter_plane.c	/^unsigned int	find_color_plane(t_plane plane, t_ray ray)$/;"	f	typeref:typename:unsigned int
 find_color_sphere	sphere.c	/^unsigned int	find_color_sphere(t_sphere sphere, t_ray ray)$/;"	f	typeref:typename:unsigned int
-find_determinant	sphere.c	/^int	 find_determinant(t_quadratic params)$/;"	f	typeref:typename:int
+find_determinant	sphere.c	/^double	 find_determinant(t_quadratic params)$/;"	f	typeref:typename:double
 find_intersections_sphere	sphere.c	/^unsigned int	find_intersections_sphere(t_quadratic quad, t_sphere sphere)$/;"	f	typeref:typename:unsigned int
 find_ray	send_rays.c	/^t_ray	find_ray(int x, int y, t_camera cam)$/;"	f	typeref:typename:t_ray
 find_values_of_quadratic_sphere	sphere.c	/^t_quadratic	find_values_of_quadratic_sphere(t_sphere sphere, t_ray ray,\\$/;"	f	typeref:typename:t_quadratic
@@ -315,6 +317,7 @@ im4	minilibx/test/main.c	/^void	*im4;$/;"	v	typeref:typename:void *
 im_raw	minilibx/test/main.c	/^void	*im_raw;$/;"	v	typeref:typename:void *
 image	minilibx/mlx_int.h	/^	XImage			*image;$/;"	m	struct:s_img	typeref:typename:XImage *
 image_coord	manipulate_image_coordinates.c	/^void	image_coord(int *x, int *y)$/;"	f	typeref:typename:void
+intersection_point	inter_cyl.c	/^t_coord		intersection_point(t_ray ray, double distance)$/;"	f	typeref:typename:t_coord
 key_hook	minilibx/mlx_int.h	/^	int					(*key_hook)();$/;"	m	struct:s_win_list	typeref:typename:int (*)()
 key_param	minilibx/mlx_int.h	/^	void				*key_param;$/;"	m	struct:s_win_list	typeref:typename:void *
 key_win1	minilibx/test/main.c	/^int	key_win1(int key,void *p)$/;"	f	typeref:typename:int
