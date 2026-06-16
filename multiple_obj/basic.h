@@ -6,22 +6,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <float.h>
+#include <string.h>
 #define WIDTH 300
 #define HEIGHT 300 
 #define PI 3.14
 #define PLANE_QUAD_ON 1
-
-typedef struct s_lib
-//structure serveur
-{
-	void	*mlx_server;
-	void	*mlx_win;
-	void	*mlx_img;
-	char	*adr;
-	int	bits_per_pixel;
-	int	line_length;
-	int	endian;
-}	t_lib;
 
 // --math-structures--
 typedef struct s_coord
@@ -86,6 +76,40 @@ typedef struct	s_quadratic
 	double	delta;
 }	t_quadratic;
 
+typedef enum e_shape
+{
+	SPHERE,
+	PLANE,
+	CYL,
+} t_shape;
+
+typedef struct s_inter
+{
+	t_coord	inter_point;
+	double	distance;
+	unsigned int color;
+}	t_inter;
+
+typedef struct s_node
+{
+	int	name;
+	void	*obj;
+	struct s_node *next;
+}	t_node;
+
+typedef struct s_lib
+//structure serveur
+{
+	void	*mlx_server;
+	void	*mlx_win;
+	void	*mlx_img;
+	char	*adr;
+	int	bits_per_pixel;
+	int	line_length;
+	int	endian;
+	t_node	*object_list;
+}	t_lib;
+
 void	draw(t_lib image, int x, int y, int color);
 void	centered_coord(int *x, int *y);
 void	image_coord(int *x, int *y);
@@ -93,7 +117,7 @@ void	loop(t_lib info);
 t_camera	calculate_cam_directions(t_camera cam);
 t_vector	get_up_vec(void);
 t_vector	get_right_vec(void);
-unsigned int	calculate_value_pixel(t_camera cam, int x, int y);
+unsigned int	calculate_value_pixel(t_lib info, t_camera cam, int x, int y);
 t_ray	find_ray(int x, int y, t_camera cam);
 t_vector	add_vector(t_vector vec1, t_vector vec2);
 t_vector	sub_vectors(t_vector vec1, t_vector vec2);
@@ -124,7 +148,8 @@ t_vector	copy_vector(t_vector other);
 t_coord		copy_coord(t_coord other);
 double	distance_two_points(t_coord x, t_coord y);
 unsigned int	find_color_plane(t_plane plane, t_ray ray);
-unsigned int	calculate_value_pixel_plane(t_camera cam, int x, int y);
-unsigned int	find_color_cyl(t_cylinder cyl, t_ray ray);
-unsigned int	calculate_val_pixel_cyl(t_camera cam, int x, int y);
+//unsigned int	calculate_value_pixel_plane(t_camera cam, int x, int y);
+double	find_color_cyl(t_cylinder cyl, t_ray ray);
+//unsigned int	calculate_val_pixel_cyl(t_camera cam, int x, int y);
+double	smallest_positive(double x, double y);
 #endif

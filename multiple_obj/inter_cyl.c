@@ -32,7 +32,7 @@ bool	intersection_infinite_cyl(t_quadratic *polynome, t_ray ray, t_cylinder cyl)
 	return (true);
 }
 
-bool	intersection_finit_cyl(t_quadratic polynome, t_ray ray, t_cylinder cyl)
+double	intersection_finit_cyl(t_quadratic polynome, t_ray ray, t_cylinder cyl, double *distance)
 {
 	double distance1;
 	double distance2;
@@ -44,7 +44,7 @@ bool	intersection_finit_cyl(t_quadratic polynome, t_ray ray, t_cylinder cyl)
 	printf("Test length dist1: %f dist2: %f\n", distance1, distance2);
 	printf("polynome a:%f b:%f c:%f\n", polynome.a, polynome.b, polynome.c);
 	if (distance1 < 0 && distance2 < 0)
-		return (false);
+		return (0);
 	if (distance1 > distance2 && distance2 >= 0)
 		distance1 = distance2;
 	double height;
@@ -55,12 +55,13 @@ bool	intersection_finit_cyl(t_quadratic polynome, t_ray ray, t_cylinder cyl)
 	if (height > cyl.height || height < 0)
 	{
 		printf("Height: %f", height);
-		return (false);
+		return (0);
 	}
-	return (true);
+	*distance = distance1;
+	return (1);
 }
 
-bool	intersection_point_cap(t_ray ray, t_cylinder cyl)
+void	intersection_point_cap(t_ray ray, t_cylinder cyl, double *distance)
 {
 	t_coord	center_bottom_face;
 	t_coord	center_top_face;
@@ -71,7 +72,7 @@ bool	intersection_point_cap(t_ray ray, t_cylinder cyl)
 	center_top_face = add_point_vector(cyl.coord, mult_vec_const((-1) * cyl.height / 2, cyl.axis_vector)); 
 	denom = dot_product_unnormed(ray.direction, cyl.axis_vector); 
 	if (denom < 1.0e-6)
-		return (false);
+		return ;
 
 	double	distance_to_bottom;
 	distance_to_bottom = dot_product(vector_two_points(ray.origin, center_bottom_face), cyl.axis_vector) / denom;
@@ -87,11 +88,18 @@ bool	intersection_point_cap(t_ray ray, t_cylinder cyl)
 
 	if (distance_two_points(center_bottom_face, intersection_bottom) < cyl.diameter / 2 || 
 		distance_two_points(center_top_face, intersection_top) < cyl.diameter / 2)
-		return (true);
-	return (false);
+	{
+		if (distance_to_top >= 0 || distance_to_bottom >= 0)
+		{
+			double	smallest_intersection;
+			smallest_intersection = smallest_positive(distance_to_bottom, distance_to_top);
+			if (smallest_intersection < *distance)
+				*distance = smallest_intersection;
+		}
+	}
 }
 
-unsigned int	find_color_cyl(t_cylinder cyl, t_ray ray)
+double	find_color_cyl(t_cylinder cyl, t_ray ray)
 //Test 1: Intersection d'un point et d'un cylindre infini
 //L intersection d'un rayon et d'un cylindre est defini comme
 //le resultat de l'equation (p - pa + vt - (va,p - pa + vt)va)2 - r2 = 0)
@@ -106,16 +114,14 @@ unsigned int	find_color_cyl(t_cylinder cyl, t_ray ray)
 //
 {
 	t_quadratic polynome;
+	double	distance;
 
-	if (intersection_infinite_cyl(&polynome, ray, cyl) && 
-		intersection_finit_cyl(polynome, ray, cyl))
+	distance = DBL_MAX;
+	if (intersection_infinite_cyl(&polynome, ray, cyl))
 	{
-		return (cyl.color);
+		intersection_finit_cyl(polynome, ray, cyl, &distance);
 	}
 	//ici un bug si le couvercle est devant le point a gerer
-	if (intersection_point_cap(ray, cyl))
-	{
-		return (cyl.color);
-	}
-	return (0);
+	intersection_point_cap(ray, cyl, &distance);
+	return (distance);
 }

@@ -36,14 +36,15 @@ unsigned int	find_color_plane(t_plane plane, t_ray ray)
 		printf("Ray: x=%f y=%f z=%f\n", ray.origin.x, ray.origin.y, ray.origin.z); 
 		in_plane = vector_two_points(plane.coord, ray.origin);
 		val = dot_product_unnormed(in_plane, plane.normal_vector); 
-		if (val < 1.0e-6 && val > -1.06e-6)
-			return (0x000000FF);
+		//ici le || etait un && avant peut etre qu'il y a un soucis
+		if (val < (-1 + 1.0e-6) || val > ( 1 - 1.06e-6))
+			return (0);
 	}
 	distance = dot_product_point_vec_two(plane.coord, plane.normal_vector); 
 	distance -= dot_product_point_vec_two(ray.origin, plane.normal_vector); 
 	distance /= dire_plane;
 	if (distance < 0)
-		return (0);
+		return (DBL_MAX);
 
 	t_coord		intersection_point;
 	int		total_neg;
@@ -52,6 +53,6 @@ unsigned int	find_color_plane(t_plane plane, t_ray ray)
 	//ne marche pas toujours tres bien parce que la pente peut se confondre avec les coordonnees
 	if (((int)(intersection_point.x) + (int)(intersection_point.y) + (int)(intersection_point.z) + total_neg) % 2 == 0\
 		&& PLANE_QUAD_ON)
-		return (0);
-	return (plane.color);
+		return (DBL_MAX);
+	return (distance);
 }

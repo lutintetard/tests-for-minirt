@@ -14,7 +14,7 @@ unsigned int	find_color_sphere(t_sphere sphere, t_ray ray)
 	quadratic = find_values_of_quadratic_sphere(sphere, ray, quadratic);
 	quadratic.delta = find_determinant(quadratic);
 	if (quadratic.delta)
-		return (0);
+		return (DBL_MAX);
 	return (find_intersections_sphere(quadratic, sphere));
 }
 
@@ -33,7 +33,7 @@ t_quadratic params)
 	intermediary_step = point_to_vector(sub_points(ray.origin, sphere.coord));
 	params.b = dot_product(mult_vec_const(2, ray.direction), intermediary_step);  
 	params.c = pow(vector_length(intermediary_step), 2);
-	params.c -= pow(sphere.diameter, 2);
+	params.c -= pow(sphere.diameter / 2, 2);
 	return (params);
 }
 
@@ -58,6 +58,8 @@ unsigned int	find_intersections_sphere(t_quadratic quad, t_sphere sphere)
 	distance_1 = ((-1) * (quad.b) - sqrt(quad.delta)) / (2 * quad.a);
 	distance_2 = ((-1) * (quad.b) + sqrt(quad.delta)) / (2 * quad.a);
 	if (distance_1 >= 0 ||  distance_2 >= 0)
-		return (sphere.color);
-	return (0);
+	{
+		return (smallest_positive(distance_1, distance_2));
+	}
+	return (DBL_MAX);
 }

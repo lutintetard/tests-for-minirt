@@ -1,23 +1,5 @@
 #include "basic.h"
 
-/*
-t_vector	find_ray(int pixel, t_win_view win, t_camera camera)
-//cette fonction determine en fonction de l'indice du pixel le rayon associe
-//il renvoie la structure correspondant a ce rayon
-//pour des questions de lisibilite l'equation "vector = f + au + bv" est 
-//decomposee en plusieurs lignes
-{
-	t_vector	associated_vector;
-
-	find_offsets(pixel, win);
-	associated_vector = orientation->vector;
-	associated_vector = add_vector(mult_vec_const(win.offset_right, camera->right), associated_vector);
-	associated_vector = add_vector(mult_vec_const(win.offset_up, camera->up), associated_vector);
-	associated_vector = normalized_vector(associated_vector);
-	return (associated_vector); 
-}
-*/
-
 t_ray	find_ray(int x, int y, t_camera cam)
 {
 	double 	offset_x;
@@ -43,23 +25,7 @@ t_ray	find_ray(int x, int y, t_camera cam)
 }
 
 /*
-void 	determine_scene_prop(t_win_view info,  double float deg)
-//le but de cette fonction est de determiner l'offset necessaire au calcul des
-//rayons associes
-//dans cette fonction il faut verifier que l'on ne prend pas la moitie de la 
-//valeur renseignee en parametre par l'utilisateur
-{
-	double float	angle_rad;
-	
-	angle_rad = deg * PI / 180;
-	info.height = tan(angle_rad);
-	info.pixel_size = 2 * info.height / WIN_HEIGHT;
-	info.width = info.pixel_size * WIN_WIDTH / 2;
-	return (pixel_size);
-}
-*/
-
-unsigned int	calculate_value_pixel(t_camera cam, int x, int y)
+unsigned int	calculate_value_pixel_sphere(t_camera cam, int x, int y)
 //cette fonction ne s'execute que lorsque on a obtenu le ray que l'on souhaite envoyer sur 
 //la scene
 {
@@ -67,14 +33,14 @@ unsigned int	calculate_value_pixel(t_camera cam, int x, int y)
 	t_sphere	sphere;
 	t_ray		ray;
 
-	sphere.coord.x = 20;
-	sphere.coord.y = 0;
-	sphere.coord.z = 0;
-	sphere.diameter = 5;
-	sphere.color = 0x000000FF;
+	//sphere.coord.x = 20;
+	//sphere.coord.y = 0;
+	//sphere.coord.z = 0;
+	//sphere.diameter = 5;
+	//sphere.color = 0x000000FF;
 
-	centered_coord(&x, &y);
-	ray = find_ray(x, y, cam);
+	//centered_coord(&x, &y);
+	//ray = find_ray(x, y, cam);
 	//printf("x: %d\t y: %d\t z: %d\n", ray.direction.x_axis, ray.direction.y_axis, ray.direction.y_axis);
 	//usleep(5000);
 	return (find_color_sphere(sphere, ray));
@@ -90,18 +56,9 @@ unsigned int	calculate_value_pixel_plane(t_camera cam, int x, int y)
 	t_plane		plane;
 	t_ray		ray;
 
-	plane.coord.x = 0;
-	plane.coord.y = 0;
-	plane.coord.z = -10;
-	plane.normal_vector.x_axis = 0;
-	plane.normal_vector.y_axis = 2;
-	plane.normal_vector.z_axis = 1;
-	plane.color = 0x00FF0000;
-
-	
 	plane.normal_vector = normalized_vector(plane.normal_vector); 
-	centered_coord(&x, &y);
-	ray = find_ray(x, y, cam);
+	//centered_coord(&x, &y);
+	//ray = find_ray(x, y, cam);
 	//printf("x: %d\t y: %d\t z: %d\n", ray.direction.x_axis, ray.direction.y_axis, ray.direction.y_axis);
 	//usleep(5000);
 	return (find_color_plane(plane, ray));
@@ -113,47 +70,64 @@ unsigned int	calculate_val_pixel_cyl(t_camera cam, int x, int y)
 	t_cylinder		cyl;
 	t_ray		ray;
 
-	cyl.coord.x = 20;
-	cyl.coord.y = 0;
-	cyl.coord.z = 0;
-	cyl.axis_vector.x_axis = 1;
-	cyl.axis_vector.y_axis = 1;
-	cyl.axis_vector.z_axis = 1;
-	cyl.diameter = 1;
-	cyl.height = 5;
-	cyl.color = 0x0000FF00;
-
 	cyl.axis_vector = normalized_vector(cyl.axis_vector); 
-	centered_coord(&x, &y);
-	ray = find_ray(x, y, cam);
+	//centered_coord(&x, &y);
+	//ray = find_ray(x, y, cam);
 	//printf("x: %d\t y: %d\t z: %d\n", ray.direction.x_axis, ray.direction.y_axis, ray.direction.y_axis);
 	//usleep(5000);
 	return (find_color_cyl(cyl, ray));
 }
-/*
-int	send_rays(t_lib info)
-//cette fonction parcours les pixels selon leurs indices et lance les fonctions 
-//qui determinent la couleur a afficher
-{
-	t_camera	cam;
-	int	pixel_i;
-
-	cam.coord.x = 0
-	cam.coord.y= 0
-	cam.coord.z = 0
-	cam.orientation_vector.x_axis = 1;
-	cam.orientation_vector.y_axis = 0;
-	cam.orientation_vector.z_axis = 0;
-	cam.fov = 70;
-	
-	calculate_cam_directions(cam); // completer les informations camera	
-	//determine_scene_prop(essentials, info->camera->fov);
-	pixel_i = 0;
-	while (pixel_i < WIN_WIDTH * WIN_HEIGHT)
-	{
-		calculate_value_pixel(info, pixel_i, essentials);
-		pixel_i++;
-	}
-	//push l'image une fois que le rendu est calcule
-}
 */
+
+double	distance_to_obj(t_ray ray, t_node *obj, unsigned int *color)
+{
+	if (obj->name == SPHERE)
+	{
+		*color = (*(t_sphere *)obj->obj).color;
+		return (find_color_sphere(*(t_sphere *)obj->obj, ray));
+	}	
+	if (obj->name == PLANE)
+	{
+		//faire attention a ce que le vecteur soit bien normalise
+		*color = (*(t_plane *)obj->obj).color;
+		return (find_color_plane(*(t_plane *)obj->obj, ray));	
+	}
+	if (obj->name == CYL)
+	{
+		//faire attention a ce que le vecteur soit bien normalise
+		*color = (*(t_cylinder *)obj->obj).color;
+		return (find_color_cyl(*(t_cylinder *)obj->obj, ray));	
+	}
+	printf("PARSING_ERROR : unknown object\n");
+	return (-1);
+}
+
+unsigned int	calculate_value_pixel(t_lib info, t_camera cam, int x, int y)
+{
+	int	i;
+	double	distance;
+	t_inter	closest_object;
+	t_node	*curr_node;
+	t_ray	ray;
+
+	centered_coord(&x, &y);
+	ray = find_ray(x, y, cam);
+	//attention utiliser la version de 42
+	memset(&closest_object, 0, sizeof(t_inter));
+	closest_object.distance = DBL_MAX;
+	curr_node = info.object_list;
+	while (curr_node != NULL)
+	{
+		unsigned int	obj_color;
+
+		distance = distance_to_obj(ray, curr_node, &obj_color);
+		if (distance >= 0 && distance < closest_object.distance)
+		{
+			closest_object.inter_point = add_point_vector\
+			(cam.coord, mult_vec_const(distance, ray.direction)); 
+			closest_object.color = obj_color;
+		}
+		curr_node = curr_node->next;	
+	}
+	return (closest_object.color);
+}
