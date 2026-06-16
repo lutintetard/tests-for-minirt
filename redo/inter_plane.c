@@ -49,6 +49,7 @@ unsigned int	find_color_plane(t_plane plane, t_ray ray)
 	int		total_neg;
 	intersection_point = add_point_vector(ray.origin, mult_vec_const(distance, ray.direction));
 	total_neg = offset_neg_coords(intersection_point);	
+	//ne marche pas toujours tres bien parce que la pente peut se confondre avec les coordonnees
 	if (((int)(intersection_point.x) + (int)(intersection_point.y) + (int)(intersection_point.z) + total_neg) % 2 == 0\
 		&& PLANE_QUAD_ON)
 		return (0);

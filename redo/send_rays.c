@@ -94,7 +94,7 @@ unsigned int	calculate_value_pixel_plane(t_camera cam, int x, int y)
 	plane.coord.y = 0;
 	plane.coord.z = -10;
 	plane.normal_vector.x_axis = 0;
-	plane.normal_vector.y_axis = 0;
+	plane.normal_vector.y_axis = 2;
 	plane.normal_vector.z_axis = 1;
 	plane.color = 0x00FF0000;
 
