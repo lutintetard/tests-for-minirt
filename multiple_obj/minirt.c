@@ -23,29 +23,29 @@ void	generate_list_of_objects(t_node **node)
 	t_plane		*plane;
 
 	cyl = malloc(sizeof(t_cylinder));
-	sphere =  malloc(sizeof(t_cylinder));
+	sphere = malloc(sizeof(t_sphere));
 	plane = malloc(sizeof(t_plane));
 	sphere->coord.x = 20;
 	sphere->coord.y = 0;
 	sphere->coord.z = 0;
-	sphere->diameter = 5;
-	sphere->color = 0x000000FF;
+	sphere->diameter = 10;
+	sphere->color = 0x00770000;
 	plane->coord.x = 0;
 	plane->coord.y = 0;
 	plane->coord.z = -10;
 	plane->normal_vector.x_axis = 0;
-	plane->normal_vector.y_axis = 2;
+	plane->normal_vector.y_axis = 0;
 	plane->normal_vector.z_axis = 1;
-	plane->color = 0x00FF0000;
+	plane->color = 0x00000077;
 	cyl->coord.x = 20;
 	cyl->coord.y = 0;
-	cyl->coord.z = 0;
-	cyl->axis_vector.x_axis = 1;
-	cyl->axis_vector.y_axis = 1;
+	cyl->coord.z = -5;
+	cyl->axis_vector.x_axis = 0;
+	cyl->axis_vector.y_axis = 0;
 	cyl->axis_vector.z_axis = 1;
-	cyl->diameter = 1;
-	cyl->height = 5;
-	cyl->color = 0x0000FF00;
+	cyl->diameter = 5;
+	cyl->height = 10;
+	cyl->color = 0x00007700;
 
 	t_node	*obj1;
 	t_node	*obj2;
@@ -61,11 +61,19 @@ void	generate_list_of_objects(t_node **node)
 	obj2->obj = (void *)sphere;
 	obj2->next = obj3;
 	obj3->name = CYL;
-	obj3->obj = (void *)CYL;
+	obj3->obj = (void *)cyl;
 	obj3->next = NULL;
 	*node = obj1;
 }
 
+void	set_light(t_lib *info)
+{
+	info->light.coord.x = 20;
+	info->light.coord.y = 0;
+	info->light.coord.z = 30;
+	info->light.bright_ratio = 0.5;
+	info->light.color = 0xFFFFFF;
+}
 
 void	loop(t_lib info)
 {
@@ -74,14 +82,15 @@ void	loop(t_lib info)
 	int	j;
 	unsigned int	color;
 
-	cam.coord.x = 0;
-	cam.coord.y= 0;
+	cam.coord.x = -20;
+	cam.coord.y = 0;
 	cam.coord.z = 0;
-	cam.orientation_vector.x_axis = 0;
+	cam.orientation_vector.x_axis = 1;
 	cam.orientation_vector.y_axis = 0;
-	cam.orientation_vector.z_axis = -1;
+	cam.orientation_vector.z_axis = 0;
 	cam.fov = 70;
 	cam = calculate_cam_directions(cam); // completer les informations camera	
+	set_light(&info);
 	generate_list_of_objects(&info.object_list);
 	i = 0;
 	while (i < HEIGHT)

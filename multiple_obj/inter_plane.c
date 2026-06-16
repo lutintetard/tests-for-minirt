@@ -14,7 +14,7 @@ int	offset_neg_coords(t_coord point)
 	return (i);
 }
 
-unsigned int	find_color_plane(t_plane plane, t_ray ray)
+double	find_color_plane(t_plane plane, t_ray ray)
 //dans cette fonction utiliser un produit vectoriel pour s'assurer que le vecteur 
 //de vision de la camera et le plan ne sont pas confondus (possiblement une infinite de 
 //reponses possibles alors
@@ -38,7 +38,7 @@ unsigned int	find_color_plane(t_plane plane, t_ray ray)
 		val = dot_product_unnormed(in_plane, plane.normal_vector); 
 		//ici le || etait un && avant peut etre qu'il y a un soucis
 		if (val < (-1 + 1.0e-6) || val > ( 1 - 1.06e-6))
-			return (0);
+			return (DBL_MAX);
 	}
 	distance = dot_product_point_vec_two(plane.coord, plane.normal_vector); 
 	distance -= dot_product_point_vec_two(ray.origin, plane.normal_vector); 

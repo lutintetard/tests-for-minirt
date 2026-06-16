@@ -1,6 +1,6 @@
 #include "basic.h"
 
-unsigned int	find_color_sphere(t_sphere sphere, t_ray ray)
+double	find_color_sphere(t_sphere sphere, t_ray ray)
 // pour determiner le point d'intersection entre un rayon et une sphere il faut resoudre
 // une equation du second degre dont les paramatres a b et c sont
 // a = D^2 = 1
@@ -13,7 +13,7 @@ unsigned int	find_color_sphere(t_sphere sphere, t_ray ray)
 
 	quadratic = find_values_of_quadratic_sphere(sphere, ray, quadratic);
 	quadratic.delta = find_determinant(quadratic);
-	if (quadratic.delta)
+	if (quadratic.delta == -1)
 		return (DBL_MAX);
 	return (find_intersections_sphere(quadratic, sphere));
 }
@@ -32,8 +32,7 @@ t_quadratic params)
 	params.a = 1;
 	intermediary_step = point_to_vector(sub_points(ray.origin, sphere.coord));
 	params.b = dot_product(mult_vec_const(2, ray.direction), intermediary_step);  
-	params.c = pow(vector_length(intermediary_step), 2);
-	params.c -= pow(sphere.diameter / 2, 2);
+	params.c = pow(vector_length(intermediary_step), 2) - pow(sphere.diameter / 2, 2);
 	return (params);
 }
 
@@ -49,7 +48,7 @@ double	 find_determinant(t_quadratic params)
 	return (delta);
 } 
 
-unsigned int	find_intersections_sphere(t_quadratic quad, t_sphere sphere)
+double	find_intersections_sphere(t_quadratic quad, t_sphere sphere)
 //pour determiner la distance il faut resoudre l'equation avec -b +/- racine delta / 2a
 {
 	double	distance_1;

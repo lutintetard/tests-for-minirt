@@ -126,8 +126,28 @@ unsigned int	calculate_value_pixel(t_lib info, t_camera cam, int x, int y)
 			closest_object.inter_point = add_point_vector\
 			(cam.coord, mult_vec_const(distance, ray.direction)); 
 			closest_object.color = obj_color;
+			closest_object.distance = distance;
 		}
 		curr_node = curr_node->next;	
 	}
-	return (closest_object.color);
+	double	distance_light;
+	distance_light = distance_two_points(info.light.coord, closest_object.inter_point); 
+	t_ray	object_to_light;
+
+	object_to_light.direction = normalized_vector(vector_two_points(closest_object.inter_point, info.light.coord));
+	object_to_light.origin = add_point_vector(copy_coord(closest_object.inter_point), mult_vec_const(1.0001, object_to_light.direction)); 
+	curr_node = info.object_list;
+	while (curr_node != NULL)
+	{
+		unsigned int	obj_color;
+
+		distance = distance_to_obj(object_to_light, curr_node, &obj_color);
+		if (distance > 0 && distance < distance_light)
+		{
+			return (closest_object.color);
+		}
+		curr_node = curr_node->next;
+	}
+	//formule pour l'ombre
+	return (closest_object.color * 2);
 }

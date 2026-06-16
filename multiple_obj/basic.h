@@ -68,6 +68,13 @@ typedef struct s_cylinder
 	unsigned int	color;
 }	t_cylinder;
 
+typedef struct s_light
+{
+	t_coord	coord;
+	double 	bright_ratio;
+	unsigned int	color;
+}	t_light;
+
 typedef struct	s_quadratic
 {
 	double	a;
@@ -81,7 +88,7 @@ typedef enum e_shape
 	SPHERE,
 	PLANE,
 	CYL,
-} t_shape;
+}	t_shape;
 
 typedef struct s_inter
 {
@@ -108,6 +115,7 @@ typedef struct s_lib
 	int	line_length;
 	int	endian;
 	t_node	*object_list;
+	t_light	light;
 }	t_lib;
 
 void	draw(t_lib image, int x, int y, int color);
@@ -128,10 +136,10 @@ double	vector_length(t_vector vec);
 t_vector	normalized_vector(t_vector vec);
 void	draw(t_lib image, int x, int y, int color);
 double	 find_determinant(t_quadratic params);
-unsigned int	find_color_sphere(t_sphere sphere, t_ray ray);
+double	find_color_sphere(t_sphere sphere, t_ray ray);
 t_quadratic	find_values_of_quadratic_sphere(t_sphere sphere, t_ray ray,\
 t_quadratic params);
-unsigned int	find_intersections_sphere(t_quadratic quad, t_sphere sphere);
+double	find_intersections_sphere(t_quadratic quad, t_sphere sphere);
 double dot_product(t_vector vec1, t_vector vec2);
 double 	dot_product_unnormed(t_vector vec1, t_vector vec2);
 double	dot_product_point_vec(t_coord point, t_vector vector);
@@ -147,7 +155,7 @@ t_vector	point_to_vector(t_coord alpha);
 t_vector	copy_vector(t_vector other);
 t_coord		copy_coord(t_coord other);
 double	distance_two_points(t_coord x, t_coord y);
-unsigned int	find_color_plane(t_plane plane, t_ray ray);
+double	find_color_plane(t_plane plane, t_ray ray);
 //unsigned int	calculate_value_pixel_plane(t_camera cam, int x, int y);
 double	find_color_cyl(t_cylinder cyl, t_ray ray);
 //unsigned int	calculate_val_pixel_cyl(t_camera cam, int x, int y);
