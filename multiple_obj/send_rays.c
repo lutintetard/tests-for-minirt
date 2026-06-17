@@ -96,7 +96,7 @@ double	distance_to_obj(t_ray ray, t_node *obj, unsigned int *color)
 	{
 		//faire attention a ce que le vecteur soit bien normalise
 		*color = (*(t_cylinder *)obj->obj).color;
-		return (find_color_cyl(*(t_cylinder *)obj->obj, ray));	
+		return (find_color_cyl(*(t_cylinder *)obj->obj, ray, color));	
 	}
 	printf("PARSING_ERROR : unknown object\n");
 	return (-1);
@@ -130,12 +130,13 @@ unsigned int	calculate_value_pixel(t_lib info, t_camera cam, int x, int y)
 		}
 		curr_node = curr_node->next;	
 	}
-	double	distance_light;
-	distance_light = distance_two_points(info.light.coord, closest_object.inter_point); 
 	t_ray	object_to_light;
 
 	object_to_light.direction = normalized_vector(vector_two_points(closest_object.inter_point, info.light.coord));
-	object_to_light.origin = add_point_vector(copy_coord(closest_object.inter_point), mult_vec_const(1.0001, object_to_light.direction)); 
+	object_to_light.origin = add_point_vector(copy_coord(closest_object.inter_point), mult_vec_const(1.00001, object_to_light.direction)); 
+
+	double	distance_light;
+	distance_light = distance_two_points(info.light.coord, object_to_light.origin); 
 	curr_node = info.object_list;
 	while (curr_node != NULL)
 	{

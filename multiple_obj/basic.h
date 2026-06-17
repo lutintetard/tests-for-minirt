@@ -8,8 +8,8 @@
 #include <unistd.h>
 #include <float.h>
 #include <string.h>
-#define WIDTH 300
-#define HEIGHT 300 
+#define WIDTH 900
+#define HEIGHT 600 
 #define PI 3.14
 #define PLANE_QUAD_ON 1
 
@@ -157,7 +157,7 @@ t_coord		copy_coord(t_coord other);
 double	distance_two_points(t_coord x, t_coord y);
 double	find_color_plane(t_plane plane, t_ray ray);
 //unsigned int	calculate_value_pixel_plane(t_camera cam, int x, int y);
-double	find_color_cyl(t_cylinder cyl, t_ray ray);
+double	find_color_cyl(t_cylinder cyl, t_ray ray, unsigned int *color);
 //unsigned int	calculate_val_pixel_cyl(t_camera cam, int x, int y);
 double	smallest_positive(double x, double y);
 #endif

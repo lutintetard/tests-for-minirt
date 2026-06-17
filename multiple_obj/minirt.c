@@ -36,13 +36,15 @@ void	generate_list_of_objects(t_node **node)
 	plane->normal_vector.x_axis = 0;
 	plane->normal_vector.y_axis = 0;
 	plane->normal_vector.z_axis = 1;
+	plane->normal_vector = normalized_vector(plane->normal_vector);
 	plane->color = 0x00000077;
 	cyl->coord.x = 20;
 	cyl->coord.y = 0;
-	cyl->coord.z = -5;
-	cyl->axis_vector.x_axis = 0;
+	cyl->coord.z = 0;
+	cyl->axis_vector.x_axis = 1;
 	cyl->axis_vector.y_axis = 0;
 	cyl->axis_vector.z_axis = 1;
+	cyl->axis_vector = normalized_vector(cyl->axis_vector);
 	cyl->diameter = 5;
 	cyl->height = 10;
 	cyl->color = 0x00007700;
@@ -56,10 +58,10 @@ void	generate_list_of_objects(t_node **node)
 	obj3 = malloc(sizeof(t_node));
 	obj1->name = PLANE;
 	obj1->obj = (void *)plane;
-	obj1->next = obj2;
+	obj1->next = obj3;
 	obj2->name = SPHERE;
 	obj2->obj = (void *)sphere;
-	obj2->next = obj3;
+	obj2->next = NULL;
 	obj3->name = CYL;
 	obj3->obj = (void *)cyl;
 	obj3->next = NULL;
@@ -68,9 +70,9 @@ void	generate_list_of_objects(t_node **node)
 
 void	set_light(t_lib *info)
 {
-	info->light.coord.x = 20;
-	info->light.coord.y = 0;
-	info->light.coord.z = 30;
+	info->light.coord.x = 0;
+	info->light.coord.y = 100;
+	info->light.coord.z = 100;
 	info->light.bright_ratio = 0.5;
 	info->light.color = 0xFFFFFF;
 }
@@ -84,10 +86,10 @@ void	loop(t_lib info)
 
 	cam.coord.x = -20;
 	cam.coord.y = 0;
-	cam.coord.z = 0;
+	cam.coord.z = 10;
 	cam.orientation_vector.x_axis = 1;
 	cam.orientation_vector.y_axis = 0;
-	cam.orientation_vector.z_axis = 0;
+	cam.orientation_vector.z_axis = -0.25;
 	cam.fov = 70;
 	cam = calculate_cam_directions(cam); // completer les informations camera	
 	set_light(&info);
