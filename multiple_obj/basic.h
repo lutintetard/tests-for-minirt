@@ -157,7 +157,8 @@ t_coord		copy_coord(t_coord other);
 double	distance_two_points(t_coord x, t_coord y);
 double	find_color_plane(t_plane plane, t_ray ray);
 //unsigned int	calculate_value_pixel_plane(t_camera cam, int x, int y);
-double	find_color_cyl(t_cylinder cyl, t_ray ray, unsigned int *color);
+double	find_color_cyl(t_cylinder cyl, t_ray ray);
 //unsigned int	calculate_val_pixel_cyl(t_camera cam, int x, int y);
 double	smallest_positive(double x, double y);
+unsigned int	make_light_nice(unsigned int color, t_light light, double distance);
 #endif

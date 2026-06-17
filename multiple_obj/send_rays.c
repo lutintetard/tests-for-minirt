@@ -96,7 +96,7 @@ double	distance_to_obj(t_ray ray, t_node *obj, unsigned int *color)
 	{
 		//faire attention a ce que le vecteur soit bien normalise
 		*color = (*(t_cylinder *)obj->obj).color;
-		return (find_color_cyl(*(t_cylinder *)obj->obj, ray, color));	
+		return (find_color_cyl(*(t_cylinder *)obj->obj, ray));	
 	}
 	printf("PARSING_ERROR : unknown object\n");
 	return (-1);
@@ -150,5 +150,6 @@ unsigned int	calculate_value_pixel(t_lib info, t_camera cam, int x, int y)
 		curr_node = curr_node->next;
 	}
 	//formule pour l'ombre
-	return (closest_object.color * 2);
+	//return (closest_object.color * 2);
+	return (make_light_nice(closest_object.color, info.light, distance_light));
 }

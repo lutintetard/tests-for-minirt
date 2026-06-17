@@ -82,7 +82,7 @@ int	check_valid_cap(t_coord center_bottom_face, t_coord center_top_face, t_coord
 	return (smallest);
 }
 
-void	intersection_point_cap(t_ray ray, t_cylinder cyl, double *distance, unsigned int *color)
+void	intersection_point_cap(t_ray ray, t_cylinder cyl, double *distance)
 {
 	t_coord	center_bottom_face;
 	t_coord	center_top_face;
@@ -117,19 +117,17 @@ void	intersection_point_cap(t_ray ray, t_cylinder cyl, double *distance, unsigne
 		{
 			*distance = distance_to_bottom;
 			printf("value distance_to_bottom: %f\n", *distance); 
-			*color = 0x00770000;
 			return ;
 		}
 		if (good_distance == 2 && distance_to_top > 0 && distance_to_top < *distance)
 		{
 			printf("value distance_to_top: %f\n", *distance); 
-			*color = 0x00770000;
 			*distance = distance_to_top;
 		}
 	}
 }
 
-double	find_color_cyl(t_cylinder cyl, t_ray ray, unsigned int *color)
+double	find_color_cyl(t_cylinder cyl, t_ray ray)
 //Test 1: Intersection d'un point et d'un cylindre infini
 //L intersection d'un rayon et d'un cylindre est defini comme
 //le resultat de l'equation (p - pa + vt - (va,p - pa + vt)va)2 - r2 = 0)
@@ -147,12 +145,11 @@ double	find_color_cyl(t_cylinder cyl, t_ray ray, unsigned int *color)
 	double	distance;
 
 	distance = DBL_MAX;
-	*color = cyl.color;
 	if (intersection_infinite_cyl(&polynome, ray, cyl))
 	{
 		intersection_finit_cyl(polynome, ray, cyl, &distance);
 	}
 	//ici un bug si le couvercle est devant le point a gerer
-	intersection_point_cap(ray, cyl, &distance, color);
+	intersection_point_cap(ray, cyl, &distance);
 	return (distance);
 }

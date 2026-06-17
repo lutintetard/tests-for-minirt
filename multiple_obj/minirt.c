@@ -37,7 +37,7 @@ void	generate_list_of_objects(t_node **node)
 	plane->normal_vector.y_axis = 0;
 	plane->normal_vector.z_axis = 1;
 	plane->normal_vector = normalized_vector(plane->normal_vector);
-	plane->color = 0x00000077;
+	plane->color = 0x00777777;
 	cyl->coord.x = 20;
 	cyl->coord.y = 0;
 	cyl->coord.z = 0;
@@ -58,10 +58,10 @@ void	generate_list_of_objects(t_node **node)
 	obj3 = malloc(sizeof(t_node));
 	obj1->name = PLANE;
 	obj1->obj = (void *)plane;
-	obj1->next = obj3;
+	obj1->next = obj2;
 	obj2->name = SPHERE;
 	obj2->obj = (void *)sphere;
-	obj2->next = NULL;
+	obj2->next = obj3;
 	obj3->name = CYL;
 	obj3->obj = (void *)cyl;
 	obj3->next = NULL;
@@ -71,10 +71,10 @@ void	generate_list_of_objects(t_node **node)
 void	set_light(t_lib *info)
 {
 	info->light.coord.x = 0;
-	info->light.coord.y = 100;
-	info->light.coord.z = 100;
-	info->light.bright_ratio = 0.5;
-	info->light.color = 0xFFFFFF;
+	info->light.coord.y = 10;
+	info->light.coord.z = 10;
+	info->light.bright_ratio = 0.3;
+	info->light.color = 0x00FF0000;
 }
 
 void	loop(t_lib info)
