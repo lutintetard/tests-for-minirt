@@ -19,16 +19,21 @@ CFILES=basic_math.c\
 	vector_length.c\
 	vector_product.c
 OFILES=$(CFILES:.c=.o)
+LIBMLX=minilibx/libmlx_Linux.a
 
 all: $(PROG)
 
 $(PROG): $(OFILES)
 	$(CC) $(FLAGS) $(OFILES) $(FLAGS) -o $(PROG)
 
-%.o:%.c
+%.o:%.c $(LIBMLX)
 	$(CC) $(FLAGS) $< $(FLAGS) -c -o $@ 
 
+$(LIBMLX):
+	make -C minilibx
+
 clean:
+	make clean -C  minilibx
 	rm -rf $(OFILES)
 
 fclean: clean
