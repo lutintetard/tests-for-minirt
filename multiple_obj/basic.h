@@ -9,10 +9,14 @@
 # include <float.h>
 # include <string.h>
 # include <stdbool.h>
-# define WIDTH 300
-# define HEIGHT 300 
+# include <X11/keysym.h>
+# include <fcntl.h>
+# include <unistd.h>
+# define WIDTH 30
+# define HEIGHT 30 
 # define PI 3.14
 # define PLANE_QUAD_ON 1
+# define IMPLEMENT_DEBUG 1
 
 // --math-structures--
 typedef struct s_coord
@@ -122,7 +126,7 @@ typedef struct s_lib
 void	draw(t_lib image, int x, int y, int color);
 void	centered_coord(int *x, int *y);
 void	image_coord(int *x, int *y);
-void	loop(t_lib info);
+void	loop(t_lib *info);
 t_camera	calculate_cam_directions(t_camera cam);
 t_vector	get_up_vec(void);
 t_vector	get_right_vec(void);
@@ -162,4 +166,5 @@ double	find_color_cyl(t_cylinder cyl, t_ray ray);
 //unsigned int	calculate_val_pixel_cyl(t_camera cam, int x, int y);
 double	smallest_positive(double x, double y);
 unsigned int	make_light_nice(unsigned int color, t_light light, double distance);
+void	debug(void);
 #endif

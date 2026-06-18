@@ -77,7 +77,7 @@ void	set_light(t_lib *info)
 	info->light.color = 0x00FF0000;
 }
 
-void	loop(t_lib info)
+void	loop(t_lib *info)
 {
 	t_camera	cam;
 	int	i;
@@ -92,8 +92,7 @@ void	loop(t_lib info)
 	cam.orientation_vector.z_axis = 0;
 	cam.fov = 70;
 	cam = calculate_cam_directions(cam); // completer les informations camera	
-	set_light(&info);
-	generate_list_of_objects(&info.object_list);
+	set_light(info);
 	i = 0;
 	while (i < HEIGHT)
 	{
@@ -101,12 +100,44 @@ void	loop(t_lib info)
 		color = 0x00000000;
 		while (j < WIDTH)
 		{
-			color = calculate_value_pixel(info, cam, j, i);
+			color = calculate_value_pixel(*info, cam, j, i);
 			printf("image x: %d image y: %d color: %d\n", j, i, color);
-			draw(info, j++, i, color);
+			draw(*info, j++, i, color);
 		}
 		i++;
 	}
+}
+
+int	close_window(void *param)
+{
+	t_lib	argument;
+	t_node	*node;
+	t_node	*prev;
+
+	argument = *(t_lib *)param;
+	node = argument.object_list;
+	while (node != NULL)
+	{
+		free(node->obj);
+		prev = node;
+		node = node->next;
+		free(prev);
+	}
+	mlx_destroy_image(argument.mlx_server, argument.mlx_img);
+	mlx_destroy_window(argument.mlx_server, argument.mlx_win);
+	mlx_destroy_display(argument.mlx_server);
+	free(argument.mlx_server);
+	exit(0);
+}
+
+int	escape_win(int keycode, void *param)
+{
+	if (keycode == XK_Escape)
+	{
+		close_window(param);
+		return (0);
+	}
+	return (0);
 }
 
 int	main(void)
@@ -115,12 +146,16 @@ int	main(void)
 {
 	t_lib	images;
 
+	debug();
 	images.mlx_server = mlx_init();
 	images.mlx_win = mlx_new_window(images.mlx_server, WIDTH, HEIGHT, "Hello World!");	
 	images.mlx_img = mlx_new_image(images.mlx_server, WIDTH, HEIGHT);
 	images.adr = mlx_get_data_addr(images.mlx_img, &images.bits_per_pixel, &images.line_length, &images.endian);
-	loop(images);
+	generate_list_of_objects(&images.object_list);
+	loop(&images);
 	mlx_put_image_to_window(images.mlx_server, images.mlx_win, images.mlx_img, 0, 0);
+	mlx_key_hook(images.mlx_win, escape_win, (void *)&images);
+	mlx_hook(images.mlx_win, 17, 0, close_window, (void *)&images);
 	mlx_loop(images.mlx_server);
 	return (0);
 }

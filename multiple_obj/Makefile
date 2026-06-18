@@ -17,17 +17,18 @@ CFILES=basic_math.c\
 	send_rays.c\
 	sphere.c\
 	vector_length.c\
-	vector_product.c
+	vector_product.c\
+	debug.c
 OFILES=$(CFILES:.c=.o)
 LIBMLX=minilibx/libmlx_Linux.a
 
 all: $(PROG)
 
 $(PROG): $(OFILES)
-	$(CC) $(FLAGS) $(OFILES) $(FLAGS) -o $(PROG)
+	$(CC) $(FLAGS) $(OFILES) $(FLAGS) -o $(PROG) -g
 
 %.o:%.c $(LIBMLX)
-	$(CC) $(FLAGS) $< $(FLAGS) -c -o $@ 
+	$(CC) $(FLAGS) $< $(FLAGS) -c -o $@ -g 
 
 $(LIBMLX):
 	make -C minilibx
