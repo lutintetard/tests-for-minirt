@@ -1,17 +1,18 @@
 #ifndef BASIC_H
 # define BASIC_H
 
-#include "minilibx/mlx.h"
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <float.h>
-#include <string.h>
-#define WIDTH 900
-#define HEIGHT 600 
-#define PI 3.14
-#define PLANE_QUAD_ON 1
+# include "minilibx/mlx.h"
+# include <math.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <float.h>
+# include <string.h>
+# include <stdbool.h>
+# define WIDTH 300
+# define HEIGHT 300 
+# define PI 3.14
+# define PLANE_QUAD_ON 1
 
 // --math-structures--
 typedef struct s_coord

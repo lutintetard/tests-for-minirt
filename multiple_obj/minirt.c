@@ -1,4 +1,4 @@
-#include "basic.h"
+#include  "basic.h"
 
 void	loop_test(t_lib info)
 //fonction pour tester l'affichage des pixels;
@@ -43,10 +43,10 @@ void	generate_list_of_objects(t_node **node)
 	cyl->coord.z = 0;
 	cyl->axis_vector.x_axis = 1;
 	cyl->axis_vector.y_axis = 0;
-	cyl->axis_vector.z_axis = 1;
+	cyl->axis_vector.z_axis = -0.25;
 	cyl->axis_vector = normalized_vector(cyl->axis_vector);
 	cyl->diameter = 5;
-	cyl->height = 10;
+	cyl->height = 11;
 	cyl->color = 0x00007700;
 
 	t_node	*obj1;
@@ -70,10 +70,10 @@ void	generate_list_of_objects(t_node **node)
 
 void	set_light(t_lib *info)
 {
-	info->light.coord.x = 0;
-	info->light.coord.y = 10;
-	info->light.coord.z = 10;
-	info->light.bright_ratio = 0.3;
+	info->light.coord.x = -10;
+	info->light.coord.y = 0;
+	info->light.coord.z = 20;
+	info->light.bright_ratio = 1;
 	info->light.color = 0x00FF0000;
 }
 
@@ -84,12 +84,12 @@ void	loop(t_lib info)
 	int	j;
 	unsigned int	color;
 
-	cam.coord.x = -20;
+	cam.coord.x = 0;
 	cam.coord.y = 0;
-	cam.coord.z = 10;
+	cam.coord.z = 0;
 	cam.orientation_vector.x_axis = 1;
 	cam.orientation_vector.y_axis = 0;
-	cam.orientation_vector.z_axis = -0.25;
+	cam.orientation_vector.z_axis = 0;
 	cam.fov = 70;
 	cam = calculate_cam_directions(cam); // completer les informations camera	
 	set_light(&info);
@@ -111,7 +111,7 @@ void	loop(t_lib info)
 
 int	main(void)
 //maniere de compiler avec les bonnes bibliotheques 
-//cc minirt.c -lmlx_Linux -lmlx -Lminilibx -Iminilibx -lXext -lX11 -lm -lz
+//cc *.c -lmlx_Linux -lmlx -Lminilibx -Iminilibx -lXext -lX11 -lm -lz
 {
 	t_lib	images;
 

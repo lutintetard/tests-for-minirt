@@ -67,17 +67,17 @@ int	check_valid_cap(t_coord center_bottom_face, t_coord center_top_face, t_coord
 	double	result;	
 
 	smallest_valid = DBL_MAX;
-	smallest = -1;
+	smallest = 0;
 	result = distance_two_points(center_bottom_face, intersection_bottom);
-	if (result < (cyl.diameter / 2))
+	if (result < (cyl.diameter / (double)2))
 	{
 		smallest = 1;
 		smallest_valid = result; 
 	} 
 	result = distance_two_points(center_top_face, intersection_top);
-	if (result < (cyl.diameter / 2) && result < smallest_valid)
+	if (result < (cyl.diameter / (double)2) && result < smallest_valid)
 	{
-		smallest = 2; 
+		smallest += 2; 
 	} 
 	return (smallest);
 }
@@ -89,8 +89,8 @@ void	intersection_point_cap(t_ray ray, t_cylinder cyl, double *distance)
 	double	denom;
 
 	
-	center_bottom_face = add_point_vector(cyl.coord, mult_vec_const(cyl.height / 2, cyl.axis_vector)); 
-	center_top_face = add_point_vector(cyl.coord, mult_vec_const((-1) * cyl.height / 2, cyl.axis_vector)); 
+	center_bottom_face = add_point_vector(cyl.coord, mult_vec_const((-1) * cyl.height / 2, cyl.axis_vector)); 
+	center_top_face = add_point_vector(cyl.coord, mult_vec_const(cyl.height / 2, cyl.axis_vector)); 
 	denom = dot_product_unnormed(ray.direction, cyl.axis_vector); 
 	if (fabs(denom) < 1.0e-10)
 		return ;
@@ -110,16 +110,15 @@ void	intersection_point_cap(t_ray ray, t_cylinder cyl, double *distance)
 	int good_distance;
 
 	good_distance = check_valid_cap(center_bottom_face, center_top_face, intersection_bottom, intersection_top, cyl);
-	if (good_distance != -1)
+	if (good_distance != 0)
 	{
 		printf("value *distance: %f\t", *distance);
-		if (good_distance == 1 && distance_to_bottom > 0 && distance_to_bottom < *distance)
+		if ((good_distance % 2 == 1) && distance_to_bottom > 0 && distance_to_bottom < *distance)
 		{
 			*distance = distance_to_bottom;
 			printf("value distance_to_bottom: %f\n", *distance); 
-			return ;
 		}
-		if (good_distance == 2 && distance_to_top > 0 && distance_to_top < *distance)
+		if (good_distance >= 2 && distance_to_top > 0 && distance_to_top < *distance)
 		{
 			printf("value distance_to_top: %f\n", *distance); 
 			*distance = distance_to_top;

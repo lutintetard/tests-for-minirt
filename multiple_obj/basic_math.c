@@ -5,6 +5,8 @@ double	smallest_positive(double x, double y)
 	double	smallest;
 	double	largest;
 
+	if (x == y)
+		return (x);
 	smallest = fmin(x, y);
 	if (smallest >= 0)
 		return (smallest);
