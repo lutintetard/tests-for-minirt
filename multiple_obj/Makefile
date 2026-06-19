@@ -2,7 +2,7 @@
 
 PROG=minirt
 COMP=cc
-FLAGS=-lmlx_Linux -lmlx -Lminilibx -Iminilibx -lXext -lX11 -lm -lz
+FLAGS=-Wall -Wextra -Werror -lmlx_Linux -lmlx -Lminilibx -Iminilibx -lXext -lX11 -lm -lz
 CFILES=basic_math.c\
 	basic_vector_operations.c\
 	cam_directions.c\

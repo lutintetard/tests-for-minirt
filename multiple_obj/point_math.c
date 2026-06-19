@@ -32,5 +32,16 @@ t_vector	point_to_vector(t_coord alpha)
 
 double	distance_two_points(t_coord x, t_coord y)
 {
-	return (sqrt(pow(x.x - y.x, 2) + pow(x.y - y.y, 2) + pow(x.z - y.z, 2)));
+	double	dim_x;
+	double	dim_y;
+	double	dim_z;
+	double	res;
+
+	dim_x = x.x - y.x;
+	dim_y = x.y - y.y;
+	dim_z = x.z - y.z;
+	res = dim_x * dim_x + dim_y * dim_y + dim_z * dim_z;
+	if (res < 1.0e-12)
+		return (0);
+	return (sqrt(res));
 }

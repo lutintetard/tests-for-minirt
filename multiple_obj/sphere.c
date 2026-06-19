@@ -8,14 +8,13 @@ double	find_color_sphere(t_sphere sphere, t_ray ray)
 // c = |O - C|^2 - R^2
 // une intersection n'est possible que quand le determinant de l'expression est positif
 {
-	double	determinant;
 	t_quadratic	quadratic;
 
 	quadratic = find_values_of_quadratic_sphere(sphere, ray, quadratic);
 	quadratic.delta = find_determinant(quadratic);
 	if (quadratic.delta == -1)
 		return (DBL_MAX);
-	return (find_intersections_sphere(quadratic, sphere));
+	return (find_intersections_sphere(quadratic));
 }
 
 t_quadratic	find_values_of_quadratic_sphere(t_sphere sphere, t_ray ray,\
@@ -48,7 +47,7 @@ double	 find_determinant(t_quadratic params)
 	return (delta);
 } 
 
-double	find_intersections_sphere(t_quadratic quad, t_sphere sphere)
+double	find_intersections_sphere(t_quadratic quad)
 //pour determiner la distance il faut resoudre l'equation avec -b +/- racine delta / 2a
 {
 	double	distance_1;

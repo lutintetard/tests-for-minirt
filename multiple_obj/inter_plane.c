@@ -1,17 +1,11 @@
 #include "basic.h"
 
-int	offset_neg_coords(t_coord point)
+int	adjust_neg(t_coord point)
 {
-	int	i;
-	
-	i = 0;
-	if (point.x < 0)
-		i++;
-	if (point.y < 0)
-		i++;
-	if (point.z < 0)
-		i++;
-	return (i);
+	int	sum;
+
+	sum = (int)floor(point.x) + (int)floor(point.y) + (int)floor(point.z); 
+	return (sum);
 }
 
 double	find_color_plane(t_plane plane, t_ray ray)
@@ -40,19 +34,17 @@ double	find_color_plane(t_plane plane, t_ray ray)
 		if (val < (-1 + 1.0e-6) || val > ( 1 - 1.06e-6))
 			return (DBL_MAX);
 	}
-	distance = dot_product_point_vec_two(plane.coord, plane.normal_vector); 
-	distance -= dot_product_point_vec_two(ray.origin, plane.normal_vector); 
-	distance /= dire_plane;
+	distance = (dot_product_point_vec_two(plane.coord, plane.normal_vector) -\
+	dot_product_point_vec_two(ray.origin, plane.normal_vector)) / dire_plane;
 	if (distance < 0)
 		return (DBL_MAX);
 
 	t_coord		intersection_point;
-	int		total_neg;
 	intersection_point = add_point_vector(ray.origin, mult_vec_const(distance, ray.direction));
-	total_neg = offset_neg_coords(intersection_point);	
+	int	sum;
+	sum = adjust_neg(intersection_point);	
 	//ne marche pas toujours tres bien parce que la pente peut se confondre avec les coordonnees
-	if (((int)(intersection_point.x) + (int)(intersection_point.y) + (int)(intersection_point.z) + total_neg) % 2 == 0\
-		&& PLANE_QUAD_ON)
+	if (sum % 2 == 0 && PLANE_QUAD_ON)
 		return (DBL_MAX);
 	return (distance);
 }

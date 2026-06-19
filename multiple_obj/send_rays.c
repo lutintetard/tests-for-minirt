@@ -8,17 +8,17 @@ t_ray	find_ray(int x, int y, t_camera cam)
 	double	opposed;
 
 	opposed = tan((cam.fov * 3.14 / 360));
-	offset_x = x / (double)(WIDTH) * opposed;
+	offset_x = 2 * x / (double)(WIDTH) * opposed;
 	printf("----------New Ray------------------\n");
 	printf("angle = %f\n" , cam.fov * 3.14 / 360);
 	printf("value x: %d, \toffset x = %f\n" , x, offset_x);
-	offset_y = y / (double)(WIDTH) * opposed;
+	offset_y = 2 * y / (double)(WIDTH) * opposed;
 	printf("value y: %d \toffset y = %f\n" , y, offset_y);
 	ray_to_send.direction = copy_vector(cam.orientation_vector);
 	//printf("x factor ray: %d, y factor ray: %d, z factor ray: %d\n", ray_to_send.direction.x_axis, ray_to_send.direction.y_axis, ray_to_send.direction.z_axis);
-	ray_to_send.direction = copy_vector(add_vector(mult_vec_const(offset_x, cam.right), ray_to_send.direction));
-	ray_to_send.direction = copy_vector(add_vector(mult_vec_const(offset_y, cam.up), ray_to_send.direction));
-	ray_to_send.direction = copy_vector(normalized_vector(ray_to_send.direction));
+	ray_to_send.direction = add_vector(mult_vec_const(offset_x, cam.right), ray_to_send.direction);
+	ray_to_send.direction = add_vector(mult_vec_const(offset_y, cam.up), ray_to_send.direction);
+	ray_to_send.direction = normalized_vector(ray_to_send.direction);
 	printf("x factor ray: %f, y factor ray: %f, z factor ray: %f\n", ray_to_send.direction.x_axis, ray_to_send.direction.y_axis, ray_to_send.direction.z_axis);
 	ray_to_send.origin = copy_coord(cam.coord);
 	return (ray_to_send);
@@ -104,7 +104,6 @@ double	distance_to_obj(t_ray ray, t_node *obj, unsigned int *color)
 
 unsigned int	calculate_value_pixel(t_lib info, t_camera cam, int x, int y)
 {
-	int	i;
 	double	distance;
 	t_inter	closest_object;
 	t_node	*curr_node;

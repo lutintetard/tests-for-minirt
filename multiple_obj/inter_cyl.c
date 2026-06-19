@@ -36,7 +36,6 @@ double	intersection_finit_cyl(t_quadratic polynome, t_ray ray, t_cylinder cyl, d
 {
 	double distance1;
 	double distance2;
-	t_coord	inter;
 
 	distance1 = ((-1) * (polynome.b) - sqrt(polynome.delta)) / (2 * polynome.a);
 	distance2 = ((-1) * (polynome.b) + sqrt(polynome.delta)) / (2 * polynome.a);

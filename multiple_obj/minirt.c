@@ -61,7 +61,7 @@ void	generate_list_of_objects(t_node **node)
 	obj1->next = obj2;
 	obj2->name = SPHERE;
 	obj2->obj = (void *)sphere;
-	obj2->next = obj3;
+	obj2->next = NULL;
 	obj3->name = CYL;
 	obj3->obj = (void *)cyl;
 	obj3->next = NULL;
@@ -70,11 +70,11 @@ void	generate_list_of_objects(t_node **node)
 
 void	set_light(t_lib *info)
 {
-	info->light.coord.x = -10;
+	info->light.coord.x = 10;
 	info->light.coord.y = 0;
-	info->light.coord.z = 20;
+	info->light.coord.z = 0;
 	info->light.bright_ratio = 1;
-	info->light.color = 0x00FF0000;
+	info->light.color = 0x00FFFFFF;
 }
 
 void	loop(t_lib *info)
@@ -86,10 +86,10 @@ void	loop(t_lib *info)
 
 	cam.coord.x = 0;
 	cam.coord.y = 0;
-	cam.coord.z = 0;
+	cam.coord.z = 10;
 	cam.orientation_vector.x_axis = 1;
 	cam.orientation_vector.y_axis = 0;
-	cam.orientation_vector.z_axis = 0;
+	cam.orientation_vector.z_axis = -0.25;
 	cam.fov = 70;
 	cam = calculate_cam_directions(cam); // completer les informations camera	
 	set_light(info);

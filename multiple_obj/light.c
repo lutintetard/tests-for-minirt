@@ -9,7 +9,9 @@ unsigned int	modify_light(unsigned int color, t_light light, double distance)
 
 	i = 0;
 	printf("~~~~~~~~~~light modifications~~~~~~~~~~\n");
-	intensity_added = light.bright_ratio / (double)(1 + distance / 100);
+	//distance = distance / 10;
+	//intensity_added = light.bright_ratio / (distance * distance + 0.01);
+	intensity_added = light.bright_ratio / (1 + distance / 10);
 	printf("distance : %f intensity factor: %f\n", distance, intensity_added);
 	result = 0;
 	while (i < 3)
@@ -38,15 +40,13 @@ unsigned int	modify_light(unsigned int color, t_light light, double distance)
 		printf("Object color %f\n",  calculate);
 		//debug = ((light.color >> ((2 - i) * 8)) % 256);
 		double multiplication_factor;
-		multiplication_factor = (double)((intensity_added) * (((light.color >> ((2 - i) * 8)) % 256) / (double)256)); 
+		multiplication_factor = (double)((intensity_added) * (((light.color >> ((2 - i) * 8)) % 256) / (double)256));
 		printf("multiplicaton factor : %f \n", multiplication_factor);
 		calculate *= 1 + multiplication_factor;
 		printf("new val : %f \t", calculate);
 		if (calculate > 255)
 			calculate = 255;
-		double debug;
-		debug = pow(2, ((2 - i) * 8));
-		result += (unsigned int)calculate * pow(2, ((2 - i) * 8)); 
+		result += (unsigned int)calculate * pow(2, ((2 - i) * 8));
 		printf("current result: %d\n", result);
 		i++;
 	}

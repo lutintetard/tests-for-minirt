@@ -12,18 +12,18 @@
 # include <X11/keysym.h>
 # include <fcntl.h>
 # include <unistd.h>
-# define WIDTH 30
-# define HEIGHT 30 
+# define WIDTH 600 
+# define HEIGHT 600 
 # define PI 3.14
-# define PLANE_QUAD_ON 1
+# define PLANE_QUAD_ON 0
 # define IMPLEMENT_DEBUG 1
 
 // --math-structures--
 typedef struct s_coord
 {
-	float	x;
-	float	y;
-	float	z;
+	double	x;
+	double	y;
+	double	z;
 }	t_coord;
 
 typedef struct s_vector
@@ -100,6 +100,7 @@ typedef struct s_inter
 	t_coord	inter_point;
 	double	distance;
 	unsigned int color;
+	t_vector vec;
 }	t_inter;
 
 typedef struct s_node
@@ -144,7 +145,7 @@ double	 find_determinant(t_quadratic params);
 double	find_color_sphere(t_sphere sphere, t_ray ray);
 t_quadratic	find_values_of_quadratic_sphere(t_sphere sphere, t_ray ray,\
 t_quadratic params);
-double	find_intersections_sphere(t_quadratic quad, t_sphere sphere);
+double	find_intersections_sphere(t_quadratic quad);
 double dot_product(t_vector vec1, t_vector vec2);
 double 	dot_product_unnormed(t_vector vec1, t_vector vec2);
 double	dot_product_point_vec(t_coord point, t_vector vector);
