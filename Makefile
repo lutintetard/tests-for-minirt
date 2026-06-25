@@ -1,64 +1,68 @@
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+# -*- Makefile -*-
 
-SRCS_DIR = ./srcs/
-CFILES = $(addprefix $(SRCS_DIR),	\
-	minirt.c						\
-	utils.c							\
-	parsing/free_functions.c		\
-	parsing/parsing.c				\
-	parsing/utils.c					\
-	parsing/print_objects.c			\
-	parsing/new_object.c			\
-	parsing/new_object2.c			\
-	parsing/parse_ccv.c				\
-	)
+PROG=minirt
+COMP=cc
+FLAGS=-Wall -Wextra -Werror -lmlx_Linux -lmlx -Lminilibx -Iminilibx -LLibft -ILibft -Llibft -lft -lXext -lX11 -lm -lz
+CFILES=basic_math.c\
+	basic_vector_operations.c\
+	cam_directions.c\
+	dot_product.c\
+	draw_to_image.c\
+	inter_cyl.c\
+	inter_plane.c\
+	light.c\
+	manipulate_image_coordinates.c\
+	minirt.c\
+	point_math.c\
+	send_rays.c\
+	sphere.c\
+	vector_length.c\
+	vector_product.c\
+	debug.c\
+	parsing_input/atof.c\
+	parsing_input/free_functions.c\
+	parsing_input/parse_ambient.c\
+	parsing_input/parse_camera.c\
+	parsing_input/parse_color.c\
+	parsing_input/parse_coord.c\
+	parsing_input/parse_cylinder.c\
+	parsing_input/parse_light.c\
+	parsing_input/parse_plane.c\
+	parsing_input/parse_sphere.c\
+	parsing_input/parsing.c\
+	parsing_input/read_file.c\
+	parsing_input/utils.c\
+	parsing_input/vector_utils.c\
+	check/apply_ambient.c\
+	check/checker.c\
+	check/color_functions.c\
+	check/sort_obj.c\
+	check/utils.c
+OFILES=$(CFILES:.c=.o)
+LIBMLX=minilibx/libmlx_Linux.a
+LIBFT=Libft/libft.a
 
-OBJS = $(CFILES:.c=.o)
+all: $(PROG)
 
-LIBFT = Libft/libft.a
-LIBMLX = minilibx-linux/libmlx.a
-NAME = minirt
+$(PROG): $(OFILES)
+	$(CC) $(FLAGS) $(OFILES) $(FLAGS) -o $(PROG) -g
 
-INCLUDES = -Iinclude -ILibft -Iminilibx-linux
-
-MLXFLAGS = -Lminilibx-linux -lmlx -lXext -lX11
-MATHFLAGS = -lm
-
-GREEN = \x1b[0;32m
-YELLOW = \x1b[0;33m
-BLUE = \x1b[0;34m
-RED = \x1b[0;31m
-RESET = \x1b[0m
-
-all: $(NAME)
-
-$(NAME): $(OBJS) $(LIBFT) $(LIBMLX)
-	@printf "$(BLUE)[BUILD] Compiling $(NAME)...$(RESET)\n"
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLXFLAGS) $(MATHFLAGS) -o $(NAME)
-	@printf "$(GREEN)[SUCCESS] $(NAME) compiled! ✔$(RESET)\n"
-
-$(LIBFT):
-	@$(MAKE) -C Libft
+%.o:%.c $(LIBMLX) $(LIBFT)
+	$(CC) $(FLAGS) $< $(FLAGS) -c -o $@ -g 
 
 $(LIBMLX):
-	@if [ ! -d "minilibx-linux" ]; then \
-		git clone https://github.com/42paris/minilibx-linux.git minilibx-linux; \
-	fi
-	@$(MAKE) -C minilibx-linux
+	make -C minilibx
 
-%.o: %.c
-	@printf "$(YELLOW)Compiling $<...$(RESET)\n"
-	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
-
+$(LIBFT):
+	make -C Libft
 clean:
-	@rm -f $(OBJS)
-	@$(MAKE) clean -C Libft
-	@$(MAKE) clean -C minilibx-linux
+	make clean -C  minilibx
+	make clean -C Libft
+	rm -rf $(OFILES)
 
 fclean: clean
-	@rm -f $(NAME)
-	@$(MAKE) fclean -C Libft
+	make fclean -C Libft
+	rm -rf $(PROG)
 
 re: fclean all
 

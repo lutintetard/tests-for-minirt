@@ -6,7 +6,7 @@
 /*   By: tparis <tparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 15:43:51 by tparis            #+#    #+#             */
-/*   Updated: 2026/04/24 17:33:18 by tparis           ###   ########.fr       */
+/*   Updated: 2026/06/23 17:40:13 by tparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,11 @@ int		ft_toupper(int c);
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
-# endif
-
 # include <fcntl.h> //open()
 # include <stdlib.h> //malloc(), free()
 # include <unistd.h> //read()
+
+# define BUFFER_SIZE 1024
 
 char	*get_next_line(int fd);
 size_t	ft_strlen(const char *s);

@@ -1,5 +1,0 @@
-out
-a.out
-*.o
-log_file.txt
-multiple_obj/log_file.txt
