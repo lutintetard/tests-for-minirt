@@ -11,7 +11,7 @@ unsigned int	modify_light(unsigned int color, t_light light, double distance)
 	printf("~~~~~~~~~~light modifications~~~~~~~~~~\n");
 	//distance = distance / 10;
 	//intensity_added = light.bright_ratio / (distance * distance + 0.01);
-	intensity_added = light.bright_ratio / (1 + distance / 10);
+	intensity_added = light.bright_ratio / pow((1 + distance / 100), 2);
 	printf("distance : %f intensity factor: %f\n", distance, intensity_added);
 	result = 0;
 	while (i < 3)

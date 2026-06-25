@@ -131,11 +131,11 @@ unsigned int	calculate_value_pixel(t_lib info, t_camera cam, int x, int y)
 	}
 	t_ray	object_to_light;
 
-	object_to_light.direction = normalized_vector(vector_two_points(closest_object.inter_point, info.light.coord));
+	object_to_light.direction = normalized_vector(vector_two_points(closest_object.inter_point, info.light->coord));
 	object_to_light.origin = add_point_vector(copy_coord(closest_object.inter_point), mult_vec_const(1.000001, object_to_light.direction)); 
 
 	double	distance_light;
-	distance_light = distance_two_points(info.light.coord, object_to_light.origin); 
+	distance_light = distance_two_points(info.light->coord, object_to_light.origin); 
 	curr_node = info.object_list;
 	while (curr_node != NULL)
 	{
@@ -151,5 +151,5 @@ unsigned int	calculate_value_pixel(t_lib info, t_camera cam, int x, int y)
 	}
 	//formule pour l'ombre
 	//return (closest_object.color * 2);
-	return (make_light_nice(closest_object.color, info.light, distance_light));
+	return (make_light_nice(closest_object.color, *info.light, distance_light));
 }

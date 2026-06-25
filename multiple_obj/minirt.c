@@ -68,6 +68,7 @@ void	generate_list_of_objects(t_node **node)
 	*node = obj1;
 }
 
+/*
 void	set_light(t_lib *info)
 {
 	info->light.coord.x = 10;
@@ -76,23 +77,15 @@ void	set_light(t_lib *info)
 	info->light.bright_ratio = 1;
 	info->light.color = 0x00FFFFFF;
 }
+*/
 
 void	loop(t_lib *info)
 {
-	t_camera	cam;
 	int	i;
 	int	j;
 	unsigned int	color;
 
-	cam.coord.x = 0;
-	cam.coord.y = 0;
-	cam.coord.z = 10;
-	cam.orientation_vector.x_axis = 1;
-	cam.orientation_vector.y_axis = 0;
-	cam.orientation_vector.z_axis = -0.25;
-	cam.fov = 70;
-	cam = calculate_cam_directions(cam); // completer les informations camera	
-	set_light(info);
+	*info->cam = calculate_cam_directions(*info->cam); // completer les informations camera	
 	i = 0;
 	while (i < HEIGHT)
 	{
@@ -100,7 +93,7 @@ void	loop(t_lib *info)
 		color = 0x00000000;
 		while (j < WIDTH)
 		{
-			color = calculate_value_pixel(*info, cam, j, i);
+			color = calculate_value_pixel(*info, *info->cam, j, i);
 			printf("image x: %d image y: %d color: %d\n", j, i, color);
 			draw(*info, j++, i, color);
 		}
@@ -140,22 +133,49 @@ int	escape_win(int keycode, void *param)
 	return (0);
 }
 
-int	main(void)
+int	get_all_objs(t_lib *lib, char **argv)
+{
+	t_node *scene;
+	t_node *ambient;
+
+	scene = parse_scene(argv[1]);
+	if (scene == NULL)
+		return (1);
+	lib->object_list = copy_list_obj(scene);
+	if (lib->object_list == NULL)
+		return (1);
+	ambient = find_shape(scene, AMBIENT);
+	if (ambient == NULL)
+		return (1);
+	apply_ambient(scene, ambient->obj);
+	lib->cam = (t_camera *)(find_shape(scene, CAM))->obj;
+	if (lib->cam == NULL)
+		return (1);
+	lib->light = (t_light *)(find_shape(scene, LIGHT))->obj; 
+	if (lib->light == NULL)
+		return (1);
+	return (0);
+}
+
+int	main(int ac, char **av)
 //maniere de compiler avec les bonnes bibliotheques 
 //cc *.c -lmlx_Linux -lmlx -Lminilibx -Iminilibx -lXext -lX11 -lm -lz
 {
 	t_lib	images;
 
+	if (ac != 2)
+		return (0);
 	debug();
 	images.mlx_server = mlx_init();
 	images.mlx_win = mlx_new_window(images.mlx_server, WIDTH, HEIGHT, "Hello World!");	
 	images.mlx_img = mlx_new_image(images.mlx_server, WIDTH, HEIGHT);
 	images.adr = mlx_get_data_addr(images.mlx_img, &images.bits_per_pixel, &images.line_length, &images.endian);
-	generate_list_of_objects(&images.object_list);
+	if (get_all_objs(&images, av))
+		return (1);
 	loop(&images);
 	mlx_put_image_to_window(images.mlx_server, images.mlx_win, images.mlx_img, 0, 0);
 	mlx_key_hook(images.mlx_win, escape_win, (void *)&images);
-	mlx_hook(images.mlx_win, 17, 0, close_window, (void *)&images);
+	//mlx_hook(images.mlx_win, 17, 0, close_window, (void *)&images);
 	mlx_loop(images.mlx_server);
 	return (0);
 }
